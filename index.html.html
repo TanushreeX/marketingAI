@@ -1,0 +1,2469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VyaparAI — India's AI Marketing Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --or:#F97316;--ord:#C2410C;--orl:#FFF7ED;--orm:#FFEDD5;--orb:#FED7AA;
+  --gr:#16A34A;--grd:#15803D;--grl:#F0FDF4;--grm:#DCFCE7;--grb:#86EFAC;
+  --bl:#2563EB;--bll:#EFF6FF;--blm:#DBEAFE;
+  --pu:#7C3AED;--pul:#F5F3FF;--pum:#EDE9FE;
+  --wa:#25D366;--wal:#F0FDF4;--wam:#DCFCE7;
+  --in:#E1306C;--inl:#FFF0F6;--inm:#FCE7F3;
+  --go:#F9AB00;--gol:#FFFBEB;
+  --re:#EF4444;--rel:#FEF2F2;
+  --bg:#FAFAF8;--bg2:#F4F1ED;--bg3:#ECEAE5;
+  --surf:#FFFFFF;--bd:#E8E2DA;--bd2:#D6CEC3;
+  --t1:#1C1917;--t2:#78716C;--t3:#A8A29E;
+  --r:16px;--rs:10px;--rxl:24px;
+  --sh:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);
+  --shm:0 8px 32px rgba(0,0,0,.12);
+  --shl:0 24px 64px rgba(0,0,0,.08)
+}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.h{font-family:'Baloo 2',cursive}
+button,input,textarea,select{font-family:inherit;outline:none}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;flex-direction:column}
+.page.active{display:flex;animation:pgIn .28s cubic-bezier(.16,1,.3,1) both}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── NAV ── */
+.topbar{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:9px}
+.brand-mark{width:33px;height:33px;background:linear-gradient(135deg,#F97316,#DC2626);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2';font-weight:800;color:#fff;font-size:17px;letter-spacing:-.5px}
+.brand-name{font-family:'Baloo 2';font-weight:700;font-size:19px;color:var(--t1)}
+.brand-name span{color:var(--or)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;cursor:pointer;font-family:inherit;font-weight:600;border-radius:var(--rs);transition:all .18s;line-height:1}
+.btn-or{background:var(--or);color:#fff;padding:12px 22px;font-size:15px}
+.btn-or:hover{background:var(--ord);transform:translateY(-1px);box-shadow:0 4px 16px rgba(249,115,22,.32)}
+.btn-out{background:var(--surf);color:var(--t1);border:1.5px solid var(--bd2);padding:10px 18px;font-size:14px}
+.btn-out:hover{border-color:var(--t2);background:var(--bg2)}
+.btn-sm{padding:7px 13px;font-size:13px;border-radius:8px}
+.btn-xs{padding:5px 10px;font-size:12px;border-radius:7px}
+.btn-ghost{background:transparent;color:var(--t2);border:1px solid var(--bd);padding:7px 13px;font-size:13px;border-radius:8px}
+.btn-ghost:hover{background:var(--bg2)}
+.btn-gr{background:var(--gr);color:#fff;padding:10px 18px;font-size:14px}
+.btn-gr:hover{background:var(--grd);transform:translateY(-1px)}
+.btn-full{width:100%}
+.btn:disabled{opacity:.38;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+
+/* ── FORMS ── */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:700;color:var(--t2);margin-bottom:5px;letter-spacing:.05em;text-transform:uppercase}
+.inp{width:100%;background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--rs);padding:12px 14px;font-size:14px;color:var(--t1);transition:all .18s}
+.inp:focus{border-color:var(--or);background:var(--surf);box-shadow:0 0 0 3px rgba(249,115,22,.1)}
+.inp::placeholder{color:var(--t3)}
+.inp-sm{padding:9px 12px;font-size:13px}
+textarea.inp{resize:vertical;line-height:1.6}
+
+/* ── CHIPS ── */
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{display:inline-flex;align-items:center;gap:5px;background:var(--bg);border:1.5px solid var(--bd);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;color:var(--t2);white-space:nowrap}
+.chip:hover{border-color:var(--bd2);color:var(--t1)}
+.chip.sel{border-color:var(--or);background:var(--orm);color:var(--ord);font-weight:600}
+.chip-sm{padding:5px 11px;font-size:12px}
+
+/* ── CARDS ── */
+.card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:20px;box-shadow:var(--sh)}
+.card-title{font-family:'Baloo 2';font-weight:700;font-size:16px;margin-bottom:4px}
+.card-sub{font-size:13px;color:var(--t2);line-height:1.5}
+
+/* ── BADGE ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700}
+.badge-or{background:var(--orm);color:var(--ord);border:1px solid var(--orb)}
+.badge-gr{background:var(--grm);color:var(--grd);border:1px solid var(--grb)}
+.badge-re{background:var(--rel);color:#B91C1C;border:1px solid #FCA5A5}
+.badge-pu{background:var(--pum);color:#5B21B6;border:1px solid #DDD6FE}
+.badge-bl{background:var(--blm);color:#1E40AF;border:1px solid #BFDBFE}
+.badge-wa{background:var(--wam);color:#15803D;border:1px solid #86EFAC}
+
+/* ── SPINNER ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .65s linear infinite}
+.loader-ring{width:44px;height:44px;border:3px solid var(--orm);border-top-color:var(--or);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes pulse2{0%,100%{opacity:1}50%{opacity:.45}}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--gr);animation:pulse2 2s ease-in-out infinite;display:inline-block}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--t1);color:#fff;border-radius:12px;padding:12px 22px;font-size:14px;font-weight:500;z-index:900;opacity:0;transition:all .28s;white-space:nowrap;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:300;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.open{display:flex;animation:fadeIn .18s ease both}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--surf);border-radius:var(--rxl);width:100%;max-width:580px;max-height:92vh;overflow-y:auto;box-shadow:var(--shm);animation:pgIn .22s cubic-bezier(.16,1,.3,1) both}
+.modal-hd{padding:22px 24px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;justify-content:space-between;position:sticky;top:0;background:var(--surf);z-index:2}
+.modal-title{font-family:'Baloo 2';font-weight:700;font-size:20px}
+.modal-sub{font-size:13px;color:var(--t2);margin-top:3px;line-height:1.5}
+.modal-close{background:var(--bg2);border:none;border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:17px;color:var(--t2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.modal-close:hover{background:var(--bg3)}
+.modal-body{padding:20px 24px 24px}
+
+/* ── PROGRESS ── */
+.prog-bar{height:4px;background:var(--bg2);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--or),#DC2626);border-radius:99px;transition:width .4s cubic-bezier(.16,1,.3,1)}
+.prog-label{font-size:12px;color:var(--t3);font-weight:500;margin-top:5px}
+
+/* ══════════════════════════════════════
+   LANDING PAGE
+══════════════════════════════════════ */
+#pg-land{background:var(--bg)}
+.land-nav{position:sticky;top:0;z-index:80;background:rgba(250,250,248,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between}
+
+.hero-wrap{max-width:1100px;margin:0 auto;padding:72px 28px 56px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.hero-left{}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--orm);color:var(--ord);border-radius:999px;padding:6px 16px;font-size:12px;font-weight:700;margin-bottom:24px;border:1px solid var(--orb);letter-spacing:.03em}
+.hero-h1{font-family:'Baloo 2';font-weight:800;font-size:clamp(34px,4vw,52px);line-height:1.1;letter-spacing:-.5px;margin-bottom:18px}
+.hero-h1 em{color:var(--or);font-style:normal;display:block}
+.hero-sub{font-size:16px;color:var(--t2);line-height:1.75;margin-bottom:32px;max-width:460px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .n{font-family:'Baloo 2';font-weight:800;font-size:26px;color:var(--t1)}
+.hero-stat .l{font-size:11px;color:var(--t3);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-top:1px}
+
+.hero-right{}
+.hero-mockup{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rxl);padding:20px;box-shadow:var(--shl);position:relative}
+.mockup-tab-row{display:flex;gap:6px;margin-bottom:16px;background:var(--bg2);padding:4px;border-radius:10px}
+.mockup-tab{padding:7px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--t3);transition:all .15s}
+.mockup-tab.act{background:var(--surf);color:var(--or);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.mockup-content{}
+.mockup-today-card{background:linear-gradient(135deg,var(--orm),#FEF9C3);border:1px solid var(--orb);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.today-greet{font-size:11px;font-weight:700;color:var(--ord);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.today-action{font-family:'Baloo 2';font-weight:700;font-size:15px;color:var(--t1);margin-bottom:8px}
+.today-chips{display:flex;gap:6px;flex-wrap:wrap}
+.today-chip{background:var(--surf);border:1px solid var(--bd);border-radius:999px;padding:4px 11px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
+.today-chip:hover{border-color:var(--or);color:var(--or)}
+.mock-content-preview{background:var(--bg);border:1px solid var(--bd);border-radius:var(--rs);padding:14px;margin-bottom:10px}
+.mock-type-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.mock-preview-text{font-size:12px;color:var(--t2);line-height:1.6;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.mock-actions{display:flex;gap:6px}
+.mock-action{flex:1;background:var(--surf);border:1px solid var(--bd);border-radius:8px;padding:7px;font-size:11px;font-weight:600;cursor:pointer;text-align:center;transition:all .15s}
+.mock-action:hover{background:var(--orm);border-color:var(--or);color:var(--ord)}
+.mock-action.ig{background:var(--inm);border-color:#FBCFE8;color:var(--in)}
+.mock-action.wa{background:var(--wam);border-color:var(--grb);color:var(--gr)}
+
+/* PROBLEM SECTION */
+.problem-section{background:var(--surf);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:64px 28px}
+.problem-inner{max-width:1000px;margin:0 auto}
+.section-label{font-size:12px;font-weight:700;color:var(--or);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;text-align:center}
+.section-title{font-family:'Baloo 2';font-weight:700;font-size:clamp(24px,3vw,34px);text-align:center;margin-bottom:40px;line-height:1.25}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.problem-card{background:var(--rel);border:1px solid #FECACA;border-radius:var(--r);padding:20px}
+.problem-card .icon{font-size:24px;margin-bottom:10px}
+.problem-card h3{font-family:'Baloo 2';font-size:16px;font-weight:700;color:#991B1B;margin-bottom:6px}
+.problem-card p{font-size:13px;color:#7F1D1D;line-height:1.6}
+.vs-arrow{display:flex;align-items:center;justify-content:center;margin:36px 0;font-size:32px;color:var(--t3)}
+.solution-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.solution-card{background:var(--grl);border:1px solid var(--grb);border-radius:var(--r);padding:20px}
+.solution-card .icon{font-size:24px;margin-bottom:10px}
+.solution-card h3{font-family:'Baloo 2';font-size:16px;font-weight:700;color:var(--grd);margin-bottom:6px}
+.solution-card p{font-size:13px;color:#14532D;line-height:1.6}
+
+/* FEATURES */
+.features-section{max-width:1100px;margin:0 auto;padding:72px 28px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:24px;transition:all .22s;box-shadow:var(--sh)}
+.feat-card:hover{transform:translateY(-4px);box-shadow:var(--shm);border-color:var(--orb)}
+.feat-icon-wrap{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+.feat-title{font-family:'Baloo 2';font-weight:700;font-size:17px;margin-bottom:8px}
+.feat-desc{font-size:13px;color:var(--t2);line-height:1.65}
+.feat-tag{margin-top:12px}
+
+/* PRICING */
+.pricing-section{background:var(--surf);border-top:1px solid var(--bd);padding:72px 28px}
+.price-inner{max-width:860px;margin:0 auto}
+.price-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;align-items:start}
+.price-card{background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--r);padding:28px}
+.price-card.featured{background:var(--surf);border-color:var(--or);box-shadow:var(--shm);position:relative;z-index:1;margin:-10px}
+.price-popular{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--or);color:#fff;font-size:11px;font-weight:700;padding:4px 16px;border-radius:999px;white-space:nowrap}
+.price-name{font-family:'Baloo 2';font-weight:700;font-size:18px;margin-bottom:4px}
+.price-amt{font-family:'Baloo 2';font-weight:800;font-size:38px;line-height:1;margin:12px 0 6px}
+.price-period{font-size:14px;color:var(--t3);font-weight:400}
+.price-desc{font-size:12px;color:var(--t3);margin-bottom:20px}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.price-features li{font-size:13px;color:var(--t2);display:flex;align-items:flex-start;gap:9px;line-height:1.5}
+.price-features li::before{content:'✓';color:var(--gr);font-weight:800;flex-shrink:0;margin-top:1px}
+.price-features li.no::before{content:'✕';color:var(--t3)}
+.price-features li.no{color:var(--t3)}
+
+/* CTA STRIP */
+.cta-strip{background:linear-gradient(135deg,var(--or),#DC2626);padding:72px 28px;text-align:center}
+.cta-strip h2{font-family:'Baloo 2';font-weight:800;font-size:clamp(28px,4vw,44px);color:#fff;margin-bottom:12px}
+.cta-strip p{font-size:16px;color:rgba(255,255,255,.85);margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.6}
+
+/* ══════════════════════════════════════
+   SETUP / ONBOARDING
+══════════════════════════════════════ */
+#pg-setup{background:var(--bg)}
+.setup-center{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 20px}
+.setup-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rxl);padding:36px 32px;width:100%;max-width:500px;box-shadow:var(--shm)}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cat-card{display:flex;align-items:center;gap:10px;background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--rs);padding:12px 14px;cursor:pointer;transition:all .15s}
+.cat-card:hover{border-color:var(--bd2);background:var(--bg2)}
+.cat-card.sel{border-color:var(--or);background:var(--orm)}
+.cat-card .ci{font-size:20px;width:24px;text-align:center;flex-shrink:0}
+.cat-card .cn{font-size:13px;font-weight:600;color:var(--t2)}
+.cat-card.sel .cn{color:var(--ord)}
+.step-title{font-family:'Baloo 2';font-weight:700;font-size:22px;margin-bottom:6px}
+.step-sub{font-size:14px;color:var(--t2);margin-bottom:22px;line-height:1.55}
+.step-nav{display:flex;gap:10px;margin-top:20px}
+.connect-row{display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--rs);padding:14px 16px;margin-bottom:10px;transition:border .2s}
+.connect-row.done{border-color:var(--gr);background:var(--grl)}
+.connect-left{display:flex;align-items:center;gap:12px}
+.connect-icon{font-size:24px;width:36px;text-align:center;flex-shrink:0}
+.connect-name{font-size:14px;font-weight:600}
+.connect-status{font-size:12px;color:var(--t3);margin-top:1px}
+.connect-row.done .connect-status{color:var(--gr);font-weight:500}
+.connect-btn{background:var(--surf);border:1.5px solid var(--bd2);border-radius:8px;padding:7px 14px;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s;color:var(--t2);display:flex;align-items:center;gap:5px}
+.connect-btn:hover{border-color:var(--or);color:var(--or)}
+.connect-btn.done{background:var(--gr);color:#fff;border-color:var(--gr)}
+
+/* ══════════════════════════════════════
+   DASHBOARD
+══════════════════════════════════════ */
+#pg-dash{background:var(--bg)}
+.dash-layout{display:flex;flex:1;min-height:0}
+.sidebar{width:220px;flex-shrink:0;background:var(--surf);border-right:1px solid var(--bd);padding:16px 10px;display:flex;flex-direction:column;gap:2px;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto}
+.sb-biz-block{padding:10px 10px 14px;border-bottom:1px solid var(--bd);margin-bottom:8px}
+.sb-biz-name{font-family:'Baloo 2';font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sb-biz-meta{font-size:11px;color:var(--t3);margin-top:2px}
+.sb-link{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:9px;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;border:none;background:transparent;font-family:inherit;width:100%;text-align:left;transition:all .12s;position:relative}
+.sb-link:hover{background:var(--bg2);color:var(--t1)}
+.sb-link.active{background:var(--orm);color:var(--ord);font-weight:600}
+.sb-icon{font-size:15px;width:18px;text-align:center}
+.sb-badge{position:absolute;right:10px;background:var(--re);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;animation:pulse2 2s ease-in-out infinite}
+.sb-sep{height:1px;background:var(--bd);margin:8px 0}
+.sb-trial{background:linear-gradient(135deg,var(--orm),#FEF9C3);border:1px solid var(--orb);border-radius:10px;padding:13px;margin-top:auto}
+.sb-trial-title{font-size:11px;font-weight:700;color:var(--ord);text-transform:uppercase;letter-spacing:.05em}
+.sb-trial-days{font-family:'Baloo 2';font-weight:700;font-size:16px;margin:3px 0 8px;color:var(--t1)}
+
+.dash-main{flex:1;overflow-y:auto;max-height:calc(100vh - 58px)}
+.dash-topbar{background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 24px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.panel{display:none;padding:24px}
+.panel.active{display:block;animation:pgIn .2s ease both}
+.panel-title{font-family:'Baloo 2';font-weight:700;font-size:22px;margin-bottom:4px}
+.panel-sub{font-size:14px;color:var(--t2);margin-bottom:24px}
+
+/* ── DASHBOARD HOME ── */
+.home-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-bottom:22px}
+.metric-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+.metric-val{font-family:'Baloo 2';font-weight:800;font-size:28px;line-height:1;margin-bottom:4px}
+.metric-lbl{font-size:12px;color:var(--t3);font-weight:500}
+.metric-change{font-size:11px;font-weight:600;margin-top:6px}
+.metric-change.up{color:var(--gr)}.metric-change.down{color:var(--re)}
+.alert-stack{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.alert-item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:12px;font-size:13px;font-weight:500}
+.alert-item.orange{background:var(--orm);border:1px solid var(--orb);color:var(--ord)}
+.alert-item.red{background:var(--rel);border:1px solid #FECACA;color:#991B1B}
+.alert-item.green{background:var(--grm);border:1px solid var(--grb);color:var(--grd)}
+.alert-item.blue{background:var(--blm);border:1px solid #BFDBFE;color:#1E40AF}
+.alert-icon{font-size:18px;flex-shrink:0}
+.alert-text{flex:1;line-height:1.45}
+.alert-action{flex-shrink:0}
+.quick-creates{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:22px}
+.qc-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:14px;text-align:center;cursor:pointer;transition:all .2s;box-shadow:var(--sh)}
+.qc-card:hover{transform:translateY(-3px);box-shadow:var(--shm);border-color:var(--orb)}
+.qc-icon{width:44px;height:44px;border-radius:12px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;font-weight:800;font-size:14px}
+.qc-lbl{font-size:12px;font-weight:600;color:var(--t1)}
+
+/* ── DAILY PULSE ── */
+.pulse-card{background:linear-gradient(135deg,#1C1917,#292524);border-radius:var(--r);padding:22px;margin-bottom:22px;color:#fff;position:relative;overflow:hidden}
+.pulse-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(249,115,22,.35),transparent);border-radius:50%}
+.pulse-title{font-family:'Baloo 2';font-weight:700;font-size:17px;margin-bottom:4px;position:relative}
+.pulse-sub{font-size:13px;opacity:.7;margin-bottom:16px;position:relative}
+.pulse-suggestions{display:flex;gap:10px;flex-wrap:wrap;position:relative}
+.pulse-sug{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;backdrop-filter:blur(4px)}
+.pulse-sug:hover{background:rgba(249,115,22,.4);border-color:rgba(249,115,22,.6)}
+
+/* ── FESTIVAL CARD ── */
+.festival-strip{background:linear-gradient(135deg,var(--pum),var(--orm));border:1px solid var(--orb);border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.festival-emoji{font-size:32px;flex-shrink:0}
+.festival-info{flex:1}
+.festival-name{font-family:'Baloo 2';font-weight:700;font-size:16px;color:var(--t1)}
+.festival-date{font-size:12px;color:var(--t2);margin-top:2px}
+.festival-tip{font-size:12px;color:var(--t2);margin-top:4px;font-style:italic}
+.festival-actions{display:flex;gap:8px;flex-shrink:0}
+
+/* ── SCHEDULE WEEK ── */
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day-col{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;min-height:130px;box-shadow:var(--sh)}
+.day-head{padding:10px 8px;border-bottom:1px solid var(--bd);text-align:center}
+.day-name{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
+.day-num{font-family:'Baloo 2';font-weight:700;font-size:17px;color:var(--t1)}
+.day-col.today .day-num{color:var(--or)}
+.day-slots{padding:6px;display:flex;flex-direction:column;gap:5px}
+.slot{border-radius:7px;padding:7px 8px;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.slot:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(0,0,0,.1)}
+.slot.ig{background:var(--inm);border-color:#FBCFE8}.slot.reel{background:var(--pum);border-color:#DDD6FE}.slot.story{background:var(--orm);border-color:var(--orb)}.slot.wa{background:var(--wam);border-color:var(--grb)}.slot.google{background:var(--gol);border-color:#FDE68A}
+.slot-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.slot.ig .slot-type{color:var(--in)}.slot.reel .slot-type{color:#5B21B6}.slot.story .slot-type{color:var(--ord)}.slot.wa .slot-type{color:var(--gr)}.slot.google .slot-type{color:#B45309}
+.slot-preview{font-size:10px;color:var(--t2);line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ai-dot::after{content:'✨';position:absolute;top:3px;right:4px;font-size:9px}
+
+.type-filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.type-chip{display:flex;align-items:center;gap:5px;background:var(--surf);border:1.5px solid var(--bd);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--t2)}
+.type-chip:hover{border-color:var(--bd2)}.type-chip.sel{border-color:var(--or);background:var(--orm);color:var(--ord)}
+.lang-filter-row{display:flex;align-items:center;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.lang-label{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.05em}
+.lchip{background:var(--surf);border:1px solid var(--bd);border-radius:999px;padding:5px 13px;font-size:12px;font-weight:500;cursor:pointer;transition:all .12s}
+.lchip:hover{border-color:var(--bd2)}.lchip.sel{background:var(--t1);color:#fff;border-color:var(--t1)}
+.gen-bar{background:linear-gradient(135deg,var(--orm),#FEF9C3);border:1px solid var(--orb);border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+.gen-bar-t{font-family:'Baloo 2';font-weight:700;font-size:15px}
+.gen-bar-s{font-size:12px;color:var(--t2);margin-top:3px}
+
+/* ── AI CREATE ── */
+.create-wrap{max-width:720px}
+.create-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.ctype-card{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);padding:20px;cursor:pointer;transition:all .2s;position:relative}
+.ctype-card:hover{border-color:var(--orb);box-shadow:0 2px 12px rgba(249,115,22,.12)}
+.ctype-card.sel{border-color:var(--or);background:var(--orl)}
+.ctype-check{position:absolute;top:12px;right:12px;width:22px;height:22px;border-radius:50%;background:var(--or);color:#fff;display:none;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+.ctype-card.sel .ctype-check{display:flex}
+.ctype-icon{font-size:30px;margin-bottom:10px}
+.ctype-title{font-family:'Baloo 2';font-weight:700;font-size:16px;margin-bottom:4px}
+.ctype-desc{font-size:12px;color:var(--t2);line-height:1.55}
+
+/* CHAT STYLE BRIEF */
+.chat-box{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:18px}
+.chat-ai{background:var(--orm);border-bottom:1px solid var(--orb);padding:14px 16px}
+.chat-ai-sender{font-size:10px;font-weight:700;color:var(--ord);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.chat-ai-msg{font-size:14px;color:var(--t1);line-height:1.6}
+.chat-input-row{display:flex;border-top:1px solid var(--bd);background:var(--bg)}
+.chat-inp{flex:1;border:none;padding:14px 16px;font-size:14px;font-family:inherit;background:transparent;color:var(--t1)}
+.chat-inp::placeholder{color:var(--t3)}
+.chat-send{background:var(--or);color:#fff;border:none;padding:0 18px;cursor:pointer;font-size:20px;transition:background .15s}
+.chat-send:hover{background:var(--ord)}
+
+/* PHOTO UPLOAD */
+.upload-zone{border:2px dashed var(--bd2);border-radius:var(--r);padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg)}
+.upload-zone:hover,.upload-zone.hover{border-color:var(--or);background:var(--orl)}
+.upload-zone input[type=file]{display:none}
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.photo-thumb{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:var(--bg2)}
+.photo-thumb img{width:100%;height:100%;object-fit:cover}
+.photo-thumb .rm{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* TONE PICKER */
+.tone-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.tone-card{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--rs);padding:10px 12px;cursor:pointer;transition:all .15s;text-align:center}
+.tone-card:hover{border-color:var(--orb)}.tone-card.sel{border-color:var(--or);background:var(--orm)}
+.tone-em{font-size:18px;margin-bottom:4px}
+.tone-name{font-size:12px;font-weight:700;color:var(--t2)}
+.tone-card.sel .tone-name{color:var(--ord)}
+
+/* GENERATING ANIMATION */
+.gen-anim{background:linear-gradient(135deg,var(--orm),#FEF9C3);border:1px solid var(--orb);border-radius:var(--r);padding:28px;text-align:center;margin-bottom:18px}
+.gen-steps{margin-top:16px;display:flex;flex-direction:column;gap:6px}
+.gen-step{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--t2);padding:5px 0;transition:color .3s}
+.gen-step.done{color:var(--gr)}.gen-step.active{color:var(--or);font-weight:600}
+.gen-step .step-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+/* RESULT CARD */
+.result-card{background:var(--surf);border:1.5px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:14px;box-shadow:var(--sh)}
+.result-hd{padding:14px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px}
+.result-body{padding:16px 18px}
+.result-photos{display:grid;gap:4px;padding:12px 18px;border-bottom:1px solid var(--bd)}
+.result-photos.one{grid-template-columns:1fr}.result-photos.two{grid-template-columns:1fr 1fr}
+.result-photos img{width:100%;border-radius:8px;object-fit:cover;max-height:200px}
+.editable{background:var(--bg);border:1px solid var(--bd);border-radius:9px;padding:13px;font-size:14px;line-height:1.7;color:var(--t1);white-space:pre-wrap;min-height:60px;outline:none;transition:border .2s;cursor:text}
+.editable:focus{border-color:var(--or);box-shadow:0 0 0 2px rgba(249,115,22,.08)}
+.hashtag-box{background:var(--bll);border-color:#BFDBFE;color:#1E40AF;font-size:13px}
+.score-bar{margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)}
+.score-row{display:flex;align-items:center;gap:12px}
+.score-label{font-size:12px;color:var(--t2);font-weight:600;width:80px;flex-shrink:0}
+.score-track{flex:1;height:6px;background:var(--bg2);border-radius:3px;overflow:hidden}
+.score-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gr),var(--gr))}
+.score-num{font-size:12px;font-weight:700;width:32px;text-align:right;flex-shrink:0}
+.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--bd);align-items:center}
+.act-ig{background:linear-gradient(135deg,#833AB4,#E1306C,#F77737);color:#fff;border:none;border-radius:9px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;transition:opacity .15s}
+.act-ig:hover{opacity:.86}
+.act-wa{background:var(--wa);color:#fff;border:none;border-radius:9px;padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;transition:background .15s}
+.act-wa:hover{background:#128C7E}
+.act-copy{background:var(--bg2);color:var(--t2);border:1px solid var(--bd);border-radius:9px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+.act-copy:hover{background:var(--bg3)}
+.act-regen{background:var(--grl);color:var(--gr);border:1px solid var(--grb);border-radius:9px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s}
+.act-regen:hover{background:var(--grm)}
+.act-add{background:var(--bll);color:var(--bl);border:1px solid #BFDBFE;border-radius:9px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s}
+.act-add:hover{background:var(--blm)}
+.song-list{background:var(--pul);border:1px solid #DDD6FE;border-radius:var(--rs);overflow:hidden;margin-top:10px}
+.song-row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid #EDE9FE}
+.song-row:last-child{border:none}
+.song-em{width:36px;height:36px;background:#7C3AED;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.song-name{font-size:13px;font-weight:600;color:#4C1D95}
+.song-vibe{font-size:11px;color:#7C3AED;margin-top:1px}
+
+/* ── WHATSAPP ── */
+.wa-wrap{max-width:700px}
+.wa-campaign-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:18px;box-shadow:var(--sh)}
+.wa-section-title{font-family:'Baloo 2';font-weight:700;font-size:17px;margin-bottom:6px}
+.wa-section-sub{font-size:13px;color:var(--t2);margin-bottom:18px;line-height:1.55}
+.wa-msg-preview{background:var(--wam);border:1px solid var(--grb);border-radius:12px;padding:16px;font-size:13px;white-space:pre-wrap;line-height:1.7;color:var(--t1);min-height:80px;max-height:220px;overflow-y:auto}
+.wa-preview-label{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.customer-table{border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden}
+.cust-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--bd);font-size:13px;transition:background .12s}
+.cust-row:last-child{border:none}.cust-row:hover{background:var(--bg2)}
+.cust-avatar{width:32px;height:32px;border-radius:50%;background:var(--orm);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2';font-weight:700;font-size:14px;color:var(--ord);flex-shrink:0}
+.cust-name{font-weight:600;flex:1}
+.cust-service{font-size:12px;color:var(--t3)}
+.cust-status{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+.status-review-sent{background:var(--grm);color:var(--grd)}
+.status-pending{background:var(--orm);color:var(--ord)}
+.status-none{background:var(--bg2);color:var(--t3)}
+
+/* ── GOOGLE REVIEWS ── */
+.reviews-wrap{max-width:760px}
+.review-summary-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:20px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;box-shadow:var(--sh)}
+.review-big-num{font-family:'Baloo 2';font-weight:800;font-size:56px;line-height:1;text-align:center}
+.review-stars-display{display:flex;gap:3px;margin:6px 0 8px;font-size:22px;color:var(--go)}
+.review-count{font-size:13px;color:var(--t3)}
+.star-bar-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t2);margin-bottom:5px}
+.star-bar-bg{flex:1;height:6px;background:var(--bg2);border-radius:99px;overflow:hidden}
+.star-bar-fill{height:100%;background:var(--go);border-radius:99px}
+.review-action-cards{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.rev-action-card{flex:1;min-width:150px;background:var(--surf);border:1px solid var(--bd);border-radius:var(--rs);padding:16px;text-align:center;cursor:pointer;transition:all .15s}
+.rev-action-card:hover{border-color:var(--or);background:var(--orl);transform:translateY(-2px)}
+.rac-icon{font-size:22px;margin-bottom:7px}
+.rac-title{font-family:'Baloo 2';font-weight:700;font-size:14px;margin-bottom:2px}
+.rac-sub{font-size:11px;color:var(--t3)}
+.review-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--rs);padding:16px 18px;margin-bottom:12px;box-shadow:var(--sh)}
+.reviewer-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.reviewer-left{display:flex;align-items:center;gap:10px}
+.reviewer-av{width:38px;height:38px;border-radius:50%;background:var(--orm);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2';font-weight:700;font-size:16px;color:var(--ord);flex-shrink:0}
+.reviewer-name{font-size:14px;font-weight:600}
+.reviewer-meta{font-size:11px;color:var(--t3);margin-top:1px}
+.review-stars-sm{display:flex;gap:2px;font-size:14px;color:var(--go)}
+.review-txt{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:12px}
+.ai-reply-preview{background:var(--bg2);border-radius:9px;padding:11px 13px;font-size:13px;color:var(--t2);border-left:3px solid var(--or);margin-bottom:12px;line-height:1.6}
+.ai-reply-label{font-size:10px;font-weight:700;color:var(--or);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.reply-inp{width:100%;background:var(--bg);border:1.5px solid var(--bd);border-radius:9px;padding:10px 13px;font-size:13px;font-family:inherit;color:var(--t1);outline:none;transition:border .2s;margin-bottom:8px;min-height:70px;resize:vertical;line-height:1.6}
+.reply-inp:focus{border-color:var(--or)}
+.reply-actions{display:flex;gap:8px;flex-wrap:wrap}
+.ai-reply-btn{background:var(--orm);color:var(--ord);border:1px solid var(--orb);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;transition:all .15s}
+.ai-reply-btn:hover{background:var(--or);color:#fff}
+.send-reply-btn{background:var(--gr);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.send-reply-btn:hover{background:var(--grd)}
+
+/* ── FESTIVAL CALENDAR ── */
+.festival-calendar{max-width:900px}
+.cal-months-grid{display:grid;gap:20px}
+.month-row{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:20px}
+.month-name{font-family:'Baloo 2';font-weight:700;font-size:17px;margin-bottom:14px}
+.festivals-in-month{display:flex;flex-direction:column;gap:10px}
+.fest-row{display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:10px;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.fest-row:hover{background:var(--orm);border-color:var(--orb)}
+.fest-emoji{font-size:22px;flex-shrink:0}
+.fest-name{font-size:14px;font-weight:600;flex:1}
+.fest-date{font-size:12px;color:var(--t3);margin-right:10px}
+.days-badge{background:var(--orm);color:var(--ord);font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px}
+.days-badge.soon{background:var(--rel);color:#B91C1C}
+.days-badge.today{background:var(--grm);color:var(--grd)}
+
+/* ── ANALYTICS ── */
+.analytics-wrap{max-width:900px}
+.ana-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.ana-card{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+.ana-val{font-family:'Baloo 2';font-weight:800;font-size:26px;margin-bottom:4px}
+.ana-lbl{font-size:12px;color:var(--t3);font-weight:500}
+.bar-chart{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:20px;box-shadow:var(--sh)}
+.bar-chart-title{font-family:'Baloo 2';font-weight:700;font-size:15px;margin-bottom:16px}
+.bars{display:flex;align-items:flex-end;gap:8px;height:130px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.bar-el{width:100%;background:linear-gradient(180deg,var(--or),#FCA5A5);border-radius:4px 4px 0 0;min-height:3px;transition:height .4s ease}
+.bar-day{font-size:10px;color:var(--t3)}
+.roi-card{background:linear-gradient(135deg,var(--grm),#DCFCE7);border:1px solid var(--grb);border-radius:var(--r);padding:20px;margin-top:16px}
+.roi-title{font-family:'Baloo 2';font-weight:700;font-size:17px;color:var(--grd);margin-bottom:12px}
+.roi-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.roi-block{background:var(--surf);border-radius:10px;padding:14px 18px;text-align:center;border:1px solid var(--grb);flex:1;min-width:100px}
+.roi-num{font-family:'Baloo 2';font-weight:800;font-size:24px}
+.roi-lbl{font-size:11px;color:var(--t3);font-weight:500}
+
+/* ── SETTINGS ── */
+.settings-wrap{max-width:500px}
+.settings-section{background:var(--surf);border:1px solid var(--bd);border-radius:var(--r);padding:22px;margin-bottom:16px;box-shadow:var(--sh)}
+.settings-section-title{font-family:'Baloo 2';font-weight:700;font-size:16px;margin-bottom:4px}
+.settings-section-sub{font-size:13px;color:var(--t2);margin-bottom:16px;line-height:1.5}
+.api-key-wrap{position:relative}
+.api-key-wrap input{padding-right:80px}
+.api-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--t2);cursor:pointer;font-family:inherit;background:none;border:none;font-weight:600}
+.feedback-stars{display:flex;gap:6px;margin-top:6px}
+.star-btn{font-size:24px;cursor:pointer;transition:transform .12s;background:none;border:none;padding:0;line-height:1;filter:grayscale(1);opacity:.4}
+.star-btn.on{filter:none;opacity:1;transform:scale(1.15)}
+.star-btn:hover{transform:scale(1.2);filter:none;opacity:1}
+
+/* ── LOADER ── */
+.loader-screen{position:fixed;inset:0;background:rgba(250,250,248,.96);backdrop-filter:blur(8px);z-index:500;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}
+.loader-screen.on{display:flex}
+.loader-msg{font-family:'Baloo 2';font-weight:700;font-size:18px}
+.loader-sub{font-size:13px;color:var(--t3)}
+.loader-steps{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.loader-step{font-size:13px;color:var(--t3);display:flex;align-items:center;gap:8px;transition:color .3s}
+.loader-step.done{color:var(--gr)}.loader-step .ls-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){.feat-grid,.price-grid{grid-template-columns:1fr 1fr}.hero-wrap{grid-template-columns:1fr;gap:40px}.hero-right{display:none}}
+@media(max-width:900px){.home-grid,.ana-grid{grid-template-columns:1fr 1fr}.week-grid{grid-template-columns:repeat(4,1fr)}.problem-grid,.solution-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.sidebar{display:none}.dash-main{max-height:none}.week-grid{grid-template-columns:repeat(3,1fr)}.panel{padding:16px}.home-grid{grid-template-columns:1fr 1fr}.quick-creates{grid-template-columns:repeat(3,1fr)}.create-type-grid{grid-template-columns:1fr}.tone-grid{grid-template-columns:repeat(3,1fr)}.feat-grid,.price-grid{grid-template-columns:1fr}.review-summary-card{grid-template-columns:1fr}}
+@media(max-width:480px){.week-grid{grid-template-columns:1fr 1fr}.quick-creates{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader-screen" id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-msg" id="loaderMsg">Setting up your workspace...</div>
+  <div class="loader-sub" id="loaderSub">Just a moment</div>
+  <div class="loader-steps" id="loaderSteps"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-hd">
+      <div><div class="modal-title" id="mTitle">Content</div><div class="modal-sub" id="mSub"></div></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     LANDING PAGE
+════════════════════════════════════ -->
+<div id="pg-land" class="page active">
+  <nav class="land-nav">
+    <div class="brand"><div class="brand-mark">V</div><div class="brand-name">Vyapar<span>AI</span></div></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="btn btn-ghost btn-sm" onclick="showPage('setup')">Sign In</button>
+      <button class="btn btn-or btn-sm" onclick="showPage('setup')">Start Free ✨</button>
+    </div>
+  </nav>
+
+  <div class="hero-wrap">
+    <div class="hero-left">
+      <div class="hero-badge"><div class="pulse-dot"></div>Made for 6.3 Crore Indian Businesses</div>
+      <h1 class="hero-h1">Apke business ki<em>AI Marketing Team</em></h1>
+      <p class="hero-sub">VyaparAI writes your Instagram posts, Reels, WhatsApp messages and Google Review replies every week — in Hindi, Gujarati, Marathi, Punjabi or English. You just approve and post.</p>
+      <div class="hero-btns">
+        <button class="btn btn-or" onclick="showPage('setup')">Start Free — No card needed ✨</button>
+        <button class="btn btn-out" onclick="runDemo()">See Live Demo →</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="n">5 mins</div><div class="l">Setup time</div></div>
+        <div class="hero-stat"><div class="n">5 langs</div><div class="l">Indian languages</div></div>
+        <div class="hero-stat"><div class="n">₹499</div><div class="l">Per month</div></div>
+        <div class="hero-stat"><div class="n">50+</div><div class="l">Festival posts</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-mockup">
+        <div class="mockup-tab-row">
+          <div class="mockup-tab act">📅 Today</div>
+          <div class="mockup-tab">✨ AI Create</div>
+          <div class="mockup-tab">⭐ Reviews</div>
+        </div>
+        <div class="mockup-today-card">
+          <div class="today-greet">🌅 Good morning, Priya!</div>
+          <div class="today-action">Diwali is in 8 days — create your campaign now!</div>
+          <div class="today-chips">
+            <div class="today-chip">📸 Diwali Post</div>
+            <div class="today-chip">🎬 Reel Script</div>
+            <div class="today-chip">💬 WA Offer</div>
+          </div>
+        </div>
+        <div class="mock-content-preview">
+          <div class="mock-type-badge" style="color:var(--in)">📸 Instagram Post — AI Generated ✨</div>
+          <div class="mock-preview-text">✨ Diwali is almost here! 🪔 This festive season, treat yourself to our exclusive Diwali Saree Collection — 20% off on all designs. Free gift wrapping on orders above ₹2,000! Visit us in Ahmedabad...</div>
+        </div>
+        <div class="mock-actions">
+          <div class="mock-action ig">📸 Post to Instagram</div>
+          <div class="mock-action wa">💬 Send on WhatsApp</div>
+          <div class="mock-action">📋 Copy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="problem-section">
+    <div class="problem-inner">
+      <div class="section-label">The Real Problem</div>
+      <div class="section-title">Why 92% of Indian small businesses<br>have no digital presence</div>
+      <div class="problem-grid">
+        <div class="problem-card"><div class="icon">🌐</div><h3>Everything is in English</h3><p>Every tool — Canva, HubSpot, Buffer — is built in English. A saree shop owner in Surat or a dhaba in Lucknow simply cannot use these tools confidently.</p></div>
+        <div class="problem-card"><div class="icon">💸</div><h3>Agencies cost ₹15,000–₹50,000/mo</h3><p>A small business earning ₹2–5 lakh per month cannot justify ₹25,000 for a marketing agency. So they do nothing at all.</p></div>
+        <div class="problem-card"><div class="icon">⏰</div><h3>Zero time to learn</h3><p>The salon owner works 12 hours a day. The restaurant owner is in the kitchen. They have no time to learn Instagram algorithms or write captions every day.</p></div>
+      </div>
+      <div class="vs-arrow">↓</div>
+      <div class="solution-grid">
+        <div class="solution-card"><div class="icon">🗣️</div><h3>Works in your language</h3><p>VyaparAI writes content in Hindi, Gujarati, Marathi, Punjabi or English — whichever your customers speak. Same tool, 5 languages.</p></div>
+        <div class="solution-card"><div class="icon">₹</div><h3>₹499/month — less than a day's chai</h3><p>Replace a ₹25,000 agency with AI that works 24/7 for less than ₹17 per day. One new customer pays for the whole month.</p></div>
+        <div class="solution-card"><div class="icon">⚡</div><h3>5 minutes a week, done</h3><p>AI writes everything. You just approve. Instagram posts, Reels, WhatsApp messages, Google replies — all ready for the week in minutes.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <div class="section-label" style="text-align:center">What Makes Us Different</div>
+    <div class="section-title">Features no other tool has for Indian businesses</div>
+    <div class="feat-grid">
+      <div class="feat-card"><div class="feat-icon-wrap" style="background:var(--pum)">🎉</div><div class="feat-title">Festival Calendar (50+ festivals)</div><div class="feat-desc">Diwali, Holi, Eid, Pongal, Navratri, Onam, Baisakhi — AI automatically creates festival-specific content for every Indian festival. Never miss a posting opportunity again.</div><div class="feat-tag"><span class="badge badge-pu">India-first</span></div></div>
+      <div class="feat-card"><div class="feat-icon-wrap" style="background:var(--inm)">📸</div><div class="feat-title">AI Create from YOUR Photos</div><div class="feat-desc">Upload your own product photos — AI analyses them and writes the perfect caption, hashtags and story about exactly what's in YOUR images. Not generic templates.</div><div class="feat-tag"><span class="badge badge-or">Most used feature</span></div></div>
+      <div class="feat-card"><div class="feat-icon-wrap" style="background:var(--wam)">💬</div><div class="feat-title">WhatsApp Broadcast Creator</div><div class="feat-desc">Create festive offers, new product announcements and review request messages. Opens directly in WhatsApp — send to your whole customer list with one tap.</div><div class="feat-tag"><span class="badge badge-wa">600M WA users</span></div></div>
+      <div class="feat-card"><div class="feat-icon-wrap" style="background:var(--gol)">⭐</div><div class="feat-title">Google Review AI Replies</div><div class="feat-desc">AI reads each review and writes the perfect reply — warm for good reviews, professional for critical ones. In your language. Reply to old unanswered reviews too.</div><div class="feat-tag"><span class="badge badge-gr">Boosts ranking</span></div></div>
+      <div class="feat-card"><div class="feat-icon-wrap" style="background:var(--pum)">🎬</div><div class="feat-title">Full Reel Script + Song Suggestions</div><div class="feat-desc">Not just a caption — a complete second-by-second Reel script with text overlays, camera directions, and 3 trending song suggestions that fit your content's mood.</div><div class="feat-tag"><span class="badge badge-pu">Reels get 3x reach</span></div></div>
+      <div class="feat-card"><div class="feat-icon-wrap" style="background:var(--orm)">📊</div><div class="feat-title">Daily Pulse & Trend Detection</div><div class="feat-desc">Every morning, see exactly what you should post today based on upcoming festivals, local trends, and what's getting high reach in your city and industry.</div><div class="feat-tag"><span class="badge badge-or">Always fresh</span></div></div>
+    </div>
+  </div>
+
+  <div class="pricing-section">
+    <div class="price-inner">
+      <div class="section-label" style="text-align:center">Simple Pricing</div>
+      <div class="section-title" style="text-align:center;margin-bottom:40px">Less than the cost of one Instagram ad</div>
+      <div class="price-grid">
+        <div class="price-card"><div class="price-name">Shuruat</div><div class="price-amt">₹499<span class="price-period">/mo</span></div><div class="price-desc">~₹16/day. For new businesses.</div><ul class="price-features"><li>7 posts per week (AI)</li><li>WhatsApp broadcasts</li><li>Google review replies</li><li>1 language</li><li class="no">Festival calendar</li><li class="no">Photo AI analysis</li></ul><button class="btn btn-out btn-full" onclick="showPage('setup')">Start Free</button></div>
+        <div class="price-card featured" style="position:relative"><div class="price-popular">Most Popular</div><div class="price-name">Tarakki</div><div class="price-amt">₹799<span class="price-period">/mo</span></div><div class="price-desc">~₹26/day. For growing businesses.</div><ul class="price-features"><li>14 posts per week (AI)</li><li>All Indian languages</li><li>Festival calendar (50+)</li><li>Photo AI analysis</li><li>Full Reel scripts + songs</li><li>Customer review tracker</li></ul><button class="btn btn-or btn-full" onclick="showPage('setup')">Start Free — 30 Days</button></div>
+        <div class="price-card"><div class="price-name">Professional</div><div class="price-amt">₹1,499<span class="price-period">/mo</span></div><div class="price-desc">For serious growth. No limits.</div><ul class="price-features"><li>Unlimited content</li><li>3 business locations</li><li>WhatsApp chatbot</li><li>Competitor tracking</li><li>Priority support</li><li>Custom branding</li></ul><button class="btn btn-out btn-full" onclick="showPage('setup')">Start Free</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <h2>Apka business deserve karta hai better marketing 🙏</h2>
+    <p>Join thousands of Indian small businesses who are growing with VyaparAI. Set up in 5 minutes, no technical knowledge needed.</p>
+    <button class="btn" style="background:#fff;color:var(--or);padding:16px 40px;font-size:17px;font-weight:800;border-radius:12px" onclick="showPage('setup')">Start Free — No Credit Card ✨</button>
+    <div style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.7)">30-day free trial • Cancel anytime • No setup fees</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     SETUP PAGES
+════════════════════════════════════ -->
+<div id="pg-setup" class="page">
+  <nav class="topbar">
+    <div class="brand" onclick="showPage('land')" style="cursor:pointer"><div class="brand-mark">V</div><div class="brand-name">Vyapar<span>AI</span></div></div>
+  </nav>
+  <div class="setup-center">
+    <div class="setup-card">
+      <div style="margin-bottom:22px">
+        <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:33%"></div></div>
+        <div class="prog-label" id="progLabel">Step 1 of 3</div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div id="step1">
+        <div class="step-title">Tell us about your business</div>
+        <div class="step-sub">Just 60 seconds — AI handles the rest. No tech skills needed.</div>
+        <div class="field"><label>Business Name</label><input class="inp" id="bizName" placeholder="e.g. Sharma Beauty Parlour" autocomplete="off"/></div>
+        <div class="field"><label>Your City</label><input class="inp" id="bizCity" placeholder="e.g. Surat, Ahmedabad, Mumbai" autocomplete="off"/></div>
+        <div class="field"><label>Business Type — choose one</label>
+          <div class="cat-grid" id="catGrid"></div>
+        </div>
+        <div class="step-nav">
+          <button class="btn btn-out" onclick="showPage('land')">← Back</button>
+          <button class="btn btn-or" style="flex:1" onclick="goStep2()">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div id="step2" style="display:none">
+        <div class="step-title">Connect your platforms</div>
+        <div class="step-sub">WhatsApp works instantly via your phone. Instagram & Google connections are simulated for beta testing — production will use real OAuth.</div>
+        <div id="connectList">
+          <div class="connect-row" id="cr-ig">
+            <div class="connect-left"><div class="connect-icon">📸</div><div><div class="connect-name">Instagram</div><div class="connect-status" id="cs-ig">Tap to connect (simulated for beta)</div></div></div>
+            <button class="connect-btn" id="cb-ig" onclick="doConnect('ig')">Connect</button>
+          </div>
+          <div class="connect-row" id="cr-fb">
+            <div class="connect-left"><div class="connect-icon">👍</div><div><div class="connect-name">Facebook Page</div><div class="connect-status" id="cs-fb">Tap to connect (simulated for beta)</div></div></div>
+            <button class="connect-btn" id="cb-fb" onclick="doConnect('fb')">Connect</button>
+          </div>
+          <div class="connect-row done">
+            <div class="connect-left"><div class="connect-icon">💬</div><div><div class="connect-name">WhatsApp</div><div class="connect-status" style="color:var(--gr);font-weight:500">✓ Works via your phone app — no login needed</div></div></div>
+            <div style="font-size:20px">✅</div>
+          </div>
+          <div class="connect-row" id="cr-g">
+            <div class="connect-left"><div class="connect-icon">⭐</div><div><div class="connect-name">Google Business</div><div class="connect-status" id="cs-g">Tap to connect (simulated for beta)</div></div></div>
+            <button class="connect-btn" id="cb-g" onclick="doConnect('g')">Connect</button>
+          </div>
+        </div>
+        <div style="background:var(--bll);border:1px solid #BFDBFE;border-radius:10px;padding:13px 15px;margin-top:12px;font-size:12px;color:#1E40AF;line-height:1.6">
+          <strong>📱 For beta testing:</strong> Click "Connect" to simulate — it shows connected status so you can test the full flow. Real OAuth integration requires a backend server (coming in v1.0). <strong>WhatsApp messages actually open your real WhatsApp app.</strong>
+        </div>
+        <div class="step-nav" style="margin-top:18px">
+          <button class="btn btn-out" onclick="goStep(1)">← Back</button>
+          <button class="btn btn-or" style="flex:1" onclick="goStep3()">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div id="step3" style="display:none">
+        <div class="step-title">🎉 Almost ready!</div>
+        <div class="step-sub">VyaparAI will generate a full week of content for <strong id="s3biz"></strong> in <strong id="s3city"></strong>.</div>
+        <div style="background:var(--orm);border:1px solid var(--orb);border-radius:12px;padding:16px 18px;margin-bottom:18px">
+          <div style="font-family:'Baloo 2';font-weight:700;font-size:15px;color:var(--ord);margin-bottom:10px">What you're getting:</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:13px;color:var(--t2)">
+            <div>📸 Instagram captions + hashtags — ready to copy and post</div>
+            <div>🎬 Full Reel scripts with timing, song suggestions</div>
+            <div>⭕ Story slide guides with sticker suggestions</div>
+            <div>💬 WhatsApp broadcast messages for campaigns</div>
+            <div>⭐ AI replies for all your Google reviews</div>
+            <div>🎉 Festival calendar auto-generates content for upcoming festivals</div>
+          </div>
+        </div>
+        <div class="field"><label>Content Language (change anytime per post)</label>
+          <div class="chip-row" id="s3langs"></div>
+        </div>
+        <div class="field" style="margin-top:14px"><label>Your services / products (helps AI write better content)</label>
+          <input class="inp" id="s3services" placeholder="e.g. Sarees, Lehengas, Kurtis, Facials, Hair colour"/>
+        </div>
+        <div class="step-nav" style="margin-top:18px">
+          <button class="btn btn-out" onclick="goStep(2)">← Back</button>
+          <button class="btn btn-or" style="flex:1" onclick="launch()">Generate My First Week ✨</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     DASHBOARD
+════════════════════════════════════ -->
+<div id="pg-dash" class="page">
+  <div class="topbar">
+    <div class="brand"><div class="brand-mark">V</div><div class="brand-name">Vyapar<span>AI</span></div></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:13px;color:var(--t3)" id="topBizName"></span>
+      <span id="aiStatusDot" style="display:none" class="badge badge-gr"><span class="pulse-dot" style="width:6px;height:6px"></span>AI Active</span>
+      <button class="btn btn-ghost btn-sm" onclick="showPage('land')">← Home</button>
+    </div>
+  </div>
+  <div class="dash-layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sb-biz-block">
+        <div class="sb-biz-name" id="sbName">Loading...</div>
+        <div class="sb-biz-meta" id="sbMeta"></div>
+      </div>
+      <button class="sb-link active" id="sbl-home" onclick="swPanel('home',this)"><span class="sb-icon">🏠</span>Dashboard</button>
+      <button class="sb-link" id="sbl-create" onclick="swPanel('create',this)"><span class="sb-icon">✨</span>AI Create</button>
+      <button class="sb-link" id="sbl-schedule" onclick="swPanel('schedule',this)"><span class="sb-icon">📅</span>Schedule</button>
+      <button class="sb-link" id="sbl-festivals" onclick="swPanel('festivals',this)"><span class="sb-icon">🎉</span>Festival Calendar</button>
+      <button class="sb-link" id="sbl-whatsapp" onclick="swPanel('whatsapp',this)"><span class="sb-icon">💬</span>WhatsApp</button>
+      <button class="sb-link" id="sbl-reviews" onclick="swPanel('reviews',this)"><span class="sb-icon">⭐</span>Google Reviews<span class="sb-badge" id="revBadge">3</span></button>
+      <button class="sb-link" id="sbl-analytics" onclick="swPanel('analytics',this)"><span class="sb-icon">📊</span>Analytics</button>
+      <div class="sb-sep"></div>
+      <button class="sb-link" id="sbl-settings" onclick="swPanel('settings',this)"><span class="sb-icon">⚙️</span>Settings</button>
+      <button class="sb-link" onclick="showPage('land')"><span class="sb-icon">←</span>Sign Out</button>
+      <div class="sb-trial">
+        <div class="sb-trial-title">FREE TRIAL</div>
+        <div class="sb-trial-days">30 days left</div>
+        <div class="prog-bar"><div class="prog-fill" style="width:5%;height:4px"></div></div>
+        <button class="btn btn-or btn-sm btn-full" style="margin-top:10px" onclick="toast('Upgrade coming soon! 🚀')">Upgrade — ₹799/mo</button>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="dash-main">
+
+      <!-- ═══ HOME PANEL ═══ -->
+      <div class="panel active" id="panel-home">
+        <div class="panel-title" id="dashGreeting">Good morning!</div>
+        <div class="panel-sub">Here's what needs your attention today</div>
+
+        <!-- DAILY PULSE -->
+        <div class="pulse-card" id="pulseCard">
+          <div class="pulse-title">⚡ Today's Marketing Pulse</div>
+          <div class="pulse-sub" id="pulseSub">Loading your daily suggestions...</div>
+          <div class="pulse-suggestions" id="pulseSugs"></div>
+        </div>
+
+        <!-- FESTIVAL STRIP -->
+        <div class="festival-strip" id="festivalStrip" style="display:none">
+          <div class="festival-emoji" id="festEmoji">🎉</div>
+          <div class="festival-info">
+            <div class="festival-name" id="festName">Upcoming Festival</div>
+            <div class="festival-date" id="festDate"></div>
+            <div class="festival-tip" id="festTip"></div>
+          </div>
+          <div class="festival-actions">
+            <button class="btn btn-or btn-sm" onclick="createFestivalContent()">Create Posts</button>
+            <button class="btn btn-out btn-sm" onclick="swPanel('festivals',document.getElementById('sbl-festivals'))">View Calendar</button>
+          </div>
+        </div>
+
+        <!-- ALERTS -->
+        <div class="alert-stack" id="alertsBox"></div>
+
+        <!-- METRICS -->
+        <div class="home-grid">
+          <div class="metric-card"><div class="metric-val" style="color:var(--in)">—</div><div class="metric-lbl">📸 Posts this week</div><div class="metric-change up" id="mc1">+0 from last week</div></div>
+          <div class="metric-card"><div class="metric-val" style="color:var(--gr)">—</div><div class="metric-lbl">💬 WA messages sent</div><div class="metric-change up" id="mc2">0 contacts reached</div></div>
+          <div class="metric-card"><div class="metric-val" style="color:var(--go)" id="mc-rating">4.7★</div><div class="metric-lbl">⭐ Google Rating</div><div class="metric-change up">3 new reviews</div></div>
+          <div class="metric-card"><div class="metric-val" style="color:var(--or)">₹0</div><div class="metric-lbl">📈 Est. new revenue</div><div class="metric-change up">From VyaparAI content</div></div>
+        </div>
+
+        <!-- QUICK CREATE -->
+        <div style="font-family:'Baloo 2';font-weight:700;font-size:16px;margin-bottom:14px">Quick Create</div>
+        <div class="quick-creates">
+          <div class="qc-card" onclick="startCreate('post')"><div class="qc-icon" style="background:linear-gradient(135deg,#833AB4,#E1306C)">📸</div><div class="qc-lbl">Instagram Post</div></div>
+          <div class="qc-card" onclick="startCreate('reel')"><div class="qc-icon" style="background:linear-gradient(135deg,#7C3AED,#E1306C)">🎬</div><div class="qc-lbl">Reel Script</div></div>
+          <div class="qc-card" onclick="startCreate('story')"><div class="qc-icon" style="background:linear-gradient(135deg,#F97316,#EF4444)">⭕</div><div class="qc-lbl">Story Guide</div></div>
+          <div class="qc-card" onclick="startCreate('whatsapp')"><div class="qc-icon" style="background:#25D366">💬</div><div class="qc-lbl">WhatsApp Msg</div></div>
+          <div class="qc-card" onclick="swPanel('reviews',document.getElementById('sbl-reviews'))"><div class="qc-icon" style="background:#F9AB00">⭐</div><div class="qc-lbl">Reply Reviews</div></div>
+        </div>
+
+        <!-- SCHEDULED TODAY -->
+        <div class="card" style="margin-top:6px">
+          <div class="card-title">📅 Scheduled this week</div>
+          <div id="homeSchedulePreview" style="margin-top:12px"></div>
+        </div>
+      </div>
+
+      <!-- ═══ AI CREATE PANEL ═══ -->
+      <div class="panel" id="panel-create">
+        <div class="panel-title">✨ AI Content Creator</div>
+        <div class="panel-sub">Tell AI what you want — with or without your own photos</div>
+        <div class="create-wrap">
+
+          <!-- STEP A: Type -->
+          <div id="ca-a">
+            <div style="font-family:'Baloo 2';font-weight:700;font-size:16px;margin-bottom:14px">What do you want to create?</div>
+            <div class="create-type-grid">
+              <div class="ctype-card" id="ct-post" onclick="pickType('post',this)"><div class="ctype-check">✓</div><div class="ctype-icon">📸</div><div class="ctype-title">Instagram Post</div><div class="ctype-desc">Caption with emojis, hashtags and call-to-action. Upload your photo or let AI write without one.</div></div>
+              <div class="ctype-card" id="ct-reel" onclick="pickType('reel',this)"><div class="ctype-check">✓</div><div class="ctype-icon">🎬</div><div class="ctype-title">Instagram Reel</div><div class="ctype-desc">Complete second-by-second Reel script, caption and 3 song suggestions with mood analysis.</div></div>
+              <div class="ctype-card" id="ct-story" onclick="pickType('story',this)"><div class="ctype-check">✓</div><div class="ctype-icon">⭕</div><div class="ctype-title">Instagram Story</div><div class="ctype-desc">Slide-by-slide story guide with text, sticker and background suggestions.</div></div>
+              <div class="ctype-card" id="ct-wa" onclick="pickType('whatsapp',this)"><div class="ctype-check">✓</div><div class="ctype-icon">💬</div><div class="ctype-title">WhatsApp Broadcast</div><div class="ctype-desc">A friendly broadcast message to send to all your customers at once. Opens WhatsApp directly.</div></div>
+            </div>
+            <button class="btn btn-or btn-full" id="btnNextToB" onclick="goCreateB()" disabled>Next — Tell AI what to write →</button>
+          </div>
+
+          <!-- STEP B: Brief + Tone + Language + Photos -->
+          <div id="ca-b" style="display:none">
+            <button style="background:none;border:none;color:var(--or);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:16px" onclick="goCreateA()">← Change type</button>
+
+            <div class="chat-box" id="briefChatBox">
+              <div class="chat-ai">
+                <div class="chat-ai-sender">VyaparAI</div>
+                <div class="chat-ai-msg" id="aiQuestion">What is this post about? Be specific — e.g. "Diwali offer: 20% off on all sarees this week" or "New hair colour services starting from ₹500".</div>
+              </div>
+              <div class="chat-input-row">
+                <input class="chat-inp" id="briefInput" placeholder="Type your brief here... (press Enter or →)" onkeydown="if(event.key==='Enter')submitBrief()"/>
+                <button class="chat-send" onclick="submitBrief()">→</button>
+              </div>
+            </div>
+
+            <div id="briefConfirmed" style="display:none;background:var(--grm);border:1px solid var(--grb);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--grd);margin-bottom:16px">
+              ✅ Got it! Now choose your tone and language below, then generate.
+            </div>
+
+            <div style="font-family:'Baloo 2';font-weight:700;font-size:15px;margin-bottom:12px">Tone of voice</div>
+            <div class="tone-grid" id="toneGrid">
+              <div class="tone-card sel" data-tone="Festive" onclick="pickTone(this)"><div class="tone-em">🎊</div><div class="tone-name">Festive</div></div>
+              <div class="tone-card" data-tone="Professional" onclick="pickTone(this)"><div class="tone-em">💼</div><div class="tone-name">Professional</div></div>
+              <div class="tone-card" data-tone="Fun" onclick="pickTone(this)"><div class="tone-em">😄</div><div class="tone-name">Fun & Energetic</div></div>
+              <div class="tone-card" data-tone="Premium" onclick="pickTone(this)"><div class="tone-em">👑</div><div class="tone-name">Premium</div></div>
+              <div class="tone-card" data-tone="Emotional" onclick="pickTone(this)"><div class="tone-em">💛</div><div class="tone-name">Emotional</div></div>
+              <div class="tone-card" data-tone="Simple" onclick="pickTone(this)"><div class="tone-em">📝</div><div class="tone-name">Simple & Clear</div></div>
+            </div>
+
+            <div style="font-family:'Baloo 2';font-weight:700;font-size:15px;margin-bottom:10px">Language for this content</div>
+            <div class="chip-row" style="margin-bottom:18px" id="createLangRow">
+              <div class="chip sel" data-lang="en" onclick="pickCreateLang(this)">English</div>
+              <div class="chip" data-lang="hi" onclick="pickCreateLang(this)">हिंदी Hindi</div>
+              <div class="chip" data-lang="gu" onclick="pickCreateLang(this)">ગુજ. Gujarati</div>
+              <div class="chip" data-lang="mr" onclick="pickCreateLang(this)">मराठी Marathi</div>
+              <div class="chip" data-lang="pa" onclick="pickCreateLang(this)">ਪੰਜਾਬੀ Punjabi</div>
+            </div>
+
+            <div style="font-family:'Baloo 2';font-weight:700;font-size:15px;margin-bottom:10px">Add your photos <span style="font-size:13px;color:var(--t3);font-family:'Plus Jakarta Sans';font-weight:400">(optional — AI analyses them and writes about what it sees)</span></div>
+            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('photoInp').click()" ondragover="handleDrag(event)" ondrop="handleDrop(event)">
+              <input type="file" id="photoInp" multiple accept="image/*" onchange="handleFiles(event)"/>
+              <div style="font-size:32px;margin-bottom:8px">📷</div>
+              <div style="font-size:14px;color:var(--t2);margin-bottom:4px">Click to upload or drag your photos here</div>
+              <div style="font-size:12px;color:var(--t3)">JPG, PNG up to 10MB each · Up to 4 photos</div>
+            </div>
+            <div class="photo-grid" id="photoGrid"></div>
+
+            <button class="btn btn-or btn-full" id="btnGenerate" onclick="generateContent()" disabled style="margin-top:20px">✨ Generate with AI</button>
+          </div>
+
+          <!-- STEP C: Result -->
+          <div id="ca-c" style="display:none">
+            <button style="background:none;border:none;color:var(--or);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:16px" onclick="goCreateB2()">← Edit brief</button>
+            <div id="resultArea"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SCHEDULE PANEL ═══ -->
+      <div class="panel" id="panel-schedule">
+        <div class="panel-title">Weekly Content Schedule</div>
+        <div class="panel-sub">Click any card to view, edit, and post. AI has pre-planned your whole week.</div>
+        <div class="type-filter-row" id="typeFilterRow">
+          <div class="type-chip sel" onclick="filterType(this,'all')">All Content</div>
+          <div class="type-chip" onclick="filterType(this,'ig')">📸 Posts</div>
+          <div class="type-chip" onclick="filterType(this,'reel')">🎬 Reels</div>
+          <div class="type-chip" onclick="filterType(this,'story')">⭕ Stories</div>
+          <div class="type-chip" onclick="filterType(this,'wa')">💬 WhatsApp</div>
+        </div>
+        <div class="lang-filter-row">
+          <span class="lang-label">Language:</span>
+          <button class="lchip sel" onclick="changeLang(this,'en')">English</button>
+          <button class="lchip" onclick="changeLang(this,'hi')">हिंदी</button>
+          <button class="lchip" onclick="changeLang(this,'gu')">ગુજ.</button>
+          <button class="lchip" onclick="changeLang(this,'mr')">मराठी</button>
+          <button class="lchip" onclick="changeLang(this,'pa')">ਪੰਜਾਬੀ</button>
+        </div>
+        <div class="gen-bar">
+          <div><div class="gen-bar-t">14 AI-written pieces · 7 days · 2 per day</div><div class="gen-bar-s">Click any card to edit, copy, or post</div></div>
+          <button class="btn btn-or btn-sm" onclick="regen()">↺ Regenerate Week</button>
+        </div>
+        <div class="week-grid" id="weekGrid"></div>
+      </div>
+
+      <!-- ═══ FESTIVAL CALENDAR ═══ -->
+      <div class="panel" id="panel-festivals">
+        <div class="panel-title">🎉 Festival Content Calendar</div>
+        <div class="panel-sub">AI pre-creates posts for every Indian festival. Click any festival to generate posts in your language.</div>
+        <div class="festival-calendar" id="festivalCalendar"></div>
+      </div>
+
+      <!-- ═══ WHATSAPP PANEL ═══ -->
+      <div class="panel" id="panel-whatsapp">
+        <div class="panel-title">💬 WhatsApp Marketing</div>
+        <div class="panel-sub">Create broadcast campaigns and send review requests via your WhatsApp</div>
+        <div class="wa-wrap">
+
+          <!-- Campaign Creator -->
+          <div class="wa-campaign-card">
+            <div class="wa-section-title">📢 Create Broadcast Campaign</div>
+            <div class="wa-section-sub">AI writes the perfect message. Opens WhatsApp — you select your broadcast list and send.</div>
+            <div class="field"><label>Campaign type</label>
+              <div class="chip-row" id="waCatRow">
+                <div class="chip sel" data-v="Festival offer" onclick="pickWACat(this)">🎉 Festival offer</div>
+                <div class="chip" data-v="New product/service" onclick="pickWACat(this)">🆕 New product</div>
+                <div class="chip" data-v="Discount sale" onclick="pickWACat(this)">💰 Sale/discount</div>
+                <div class="chip" data-v="Appointment reminder" onclick="pickWACat(this)">📅 Reminder</div>
+                <div class="chip" data-v="General update" onclick="pickWACat(this)">📣 General</div>
+              </div>
+            </div>
+            <div class="field"><label>Message details (optional but makes AI much better)</label>
+              <input class="inp" id="waDetails" placeholder="e.g. 20% off on all services this Diwali, offer valid till 25th October"/>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+              <div class="field" style="margin:0"><label>Tone</label>
+                <div class="chip-row" id="waToneRow">
+                  <div class="chip chip-sm sel" data-v="Festive" onclick="pickChipSingle(this,'waToneRow')">🎊 Festive</div>
+                  <div class="chip chip-sm" data-v="Urgent" onclick="pickChipSingle(this,'waToneRow')">⚡ Urgent</div>
+                  <div class="chip chip-sm" data-v="Friendly" onclick="pickChipSingle(this,'waToneRow')">😊 Friendly</div>
+                </div>
+              </div>
+              <div class="field" style="margin:0"><label>Language</label>
+                <div class="chip-row" id="waLangRow">
+                  <div class="chip chip-sm sel" data-lang="en" onclick="pickChipSingle(this,'waLangRow');waLang=this.dataset.lang;updateWAPreview()">EN</div>
+                  <div class="chip chip-sm" data-lang="hi" onclick="pickChipSingle(this,'waLangRow');waLang=this.dataset.lang;updateWAPreview()">हि</div>
+                  <div class="chip chip-sm" data-lang="gu" onclick="pickChipSingle(this,'waLangRow');waLang=this.dataset.lang;updateWAPreview()">ગુ</div>
+                  <div class="chip chip-sm" data-lang="mr" onclick="pickChipSingle(this,'waLangRow');waLang=this.dataset.lang;updateWAPreview()">मर</div>
+                  <div class="chip chip-sm" data-lang="pa" onclick="pickChipSingle(this,'waLangRow');waLang=this.dataset.lang;updateWAPreview()">ਪੰ</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-or" onclick="generateWA()">✨ Generate Message</button>
+          </div>
+
+          <!-- WA Message Preview -->
+          <div id="waMsgSection" style="display:none" class="wa-campaign-card">
+            <div class="wa-section-title">Message Preview</div>
+            <div class="wa-preview-label">Your broadcast message:</div>
+            <div class="wa-msg-preview" id="waMsgPreview" contenteditable="true"></div>
+            <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+              <button class="act-wa" onclick="sendWACampaign()">💬 Open in WhatsApp</button>
+              <button class="act-regen" onclick="generateWA()">↺ Regenerate</button>
+              <button class="act-copy" onclick="copyWA()">📋 Copy</button>
+            </div>
+            <div style="font-size:12px;color:var(--t3);margin-top:8px">Tap "Open in WhatsApp" → select your broadcast list → send. That's it!</div>
+          </div>
+
+          <!-- Review Request -->
+          <div class="wa-campaign-card">
+            <div class="wa-section-title">⭐ Request Google Review from Customer</div>
+            <div class="wa-section-sub">After a customer visits, send them a WhatsApp asking for a Google review. It takes 10 seconds and doubles your review count.</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div class="field"><label>Customer name (optional)</label><input class="inp inp-sm" id="custRevName" placeholder="e.g. Priya Sharma" oninput="updateRevReqPreview()"/></div>
+              <div class="field"><label>Customer WhatsApp number</label><input class="inp inp-sm" id="custRevPhone" placeholder="+91 98765 43210" type="tel"/></div>
+            </div>
+            <div class="wa-preview-label" style="margin-top:4px">Preview:</div>
+            <div class="wa-msg-preview" id="revReqPreview" style="max-height:140px;font-size:12px"></div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn btn-or" onclick="sendRevReq()">💬 Send via WhatsApp</button>
+              <button class="btn btn-out btn-sm" onclick="copyRevReq()">📋 Copy link</button>
+            </div>
+          </div>
+
+          <!-- Customer Tracker -->
+          <div class="wa-campaign-card">
+            <div class="wa-section-title">👥 Today's Customer Visits</div>
+            <div class="wa-section-sub">Track who visited today. AI sends them a review request 2 hours later automatically.</div>
+            <div id="custTable" class="customer-table" style="margin-bottom:12px"></div>
+            <button class="btn btn-or btn-sm" onclick="addCustVisit()">+ Mark customer visit</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ REVIEWS PANEL ═══ -->
+      <div class="panel" id="panel-reviews">
+        <div class="panel-title">⭐ Google Reviews</div>
+        <div class="panel-sub">Manage reviews, request new ones, and reply with AI in seconds</div>
+        <div class="reviews-wrap">
+          <div class="review-summary-card">
+            <div>
+              <div class="review-big-num">4.7</div>
+              <div class="review-stars-display">★★★★½</div>
+              <div class="review-count">Based on 43 reviews</div>
+            </div>
+            <div>
+              <div class="star-bar-row"><span>5★</span><div class="star-bar-bg"><div class="star-bar-fill" style="width:70%"></div></div><span>30</span></div>
+              <div class="star-bar-row"><span>4★</span><div class="star-bar-bg"><div class="star-bar-fill" style="width:16%"></div></div><span>7</span></div>
+              <div class="star-bar-row"><span>3★</span><div class="star-bar-bg"><div class="star-bar-fill" style="width:5%"></div></div><span>2</span></div>
+              <div class="star-bar-row"><span>2★</span><div class="star-bar-bg"><div class="star-bar-fill" style="width:5%"></div></div><span>2</span></div>
+              <div class="star-bar-row"><span>1★</span><div class="star-bar-bg"><div class="star-bar-fill" style="width:5%"></div></div><span>2</span></div>
+            </div>
+          </div>
+          <div class="review-action-cards">
+            <div class="rev-action-card" onclick="swPanel('whatsapp',document.getElementById('sbl-whatsapp'))"><div class="rac-icon">📩</div><div class="rac-title">Request Review</div><div class="rac-sub">Send via WhatsApp</div></div>
+            <div class="rev-action-card" onclick="copyRevLink()"><div class="rac-icon">🔗</div><div class="rac-title">Copy Review Link</div><div class="rac-sub">Share with customers</div></div>
+            <div class="rev-action-card" onclick="startCreate('post')"><div class="rac-icon">📸</div><div class="rac-title">Post 5★ as Story</div><div class="rac-sub">Turn review into content</div></div>
+          </div>
+          <div style="font-family:'Baloo 2';font-weight:700;font-size:16px;margin-bottom:14px">Recent Reviews — Click ✨ AI Reply to generate a response</div>
+          <div id="reviewsList"></div>
+        </div>
+      </div>
+
+      <!-- ═══ ANALYTICS PANEL ═══ -->
+      <div class="panel" id="panel-analytics">
+        <div class="panel-title">📊 Performance Overview</div>
+        <div class="panel-sub">Beta — estimated figures based on content volume and engagement patterns</div>
+        <div class="analytics-wrap">
+          <div class="ana-grid">
+            <div class="ana-card"><div class="ana-val" style="color:var(--in)">142</div><div class="ana-lbl">📸 Instagram Reach</div></div>
+            <div class="ana-card"><div class="ana-val" style="color:#7C3AED">89</div><div class="ana-lbl">🎬 Reel Views</div></div>
+            <div class="ana-card"><div class="ana-val" style="color:var(--wa)">54</div><div class="ana-lbl">💬 WhatsApp Sent</div></div>
+            <div class="ana-card"><div class="ana-val" style="color:var(--go)">4.7★</div><div class="ana-lbl">⭐ Google Rating</div></div>
+          </div>
+          <div class="bar-chart">
+            <div class="bar-chart-title">Weekly Content Reach</div>
+            <div class="bars" id="anaChart"></div>
+            <div style="display:flex;gap:8px;margin-top:8px" id="anaDays"></div>
+          </div>
+          <div class="roi-card">
+            <div class="roi-title">💰 ROI Calculator — This Month</div>
+            <div class="roi-row">
+              <div class="roi-block"><div class="roi-num" style="color:var(--in)">₹799</div><div class="roi-lbl">VyaparAI cost</div></div>
+              <div style="font-size:24px;color:var(--t3)">→</div>
+              <div class="roi-block"><div class="roi-num" style="color:var(--gr)">₹14,400</div><div class="roi-lbl">Est. new revenue</div></div>
+              <div style="font-size:24px;color:var(--t3)">→</div>
+              <div class="roi-block" style="background:var(--grm)"><div class="roi-num" style="color:var(--grd)">18x</div><div class="roi-lbl">Return on investment</div></div>
+            </div>
+            <div style="font-size:12px;color:var(--t3);margin-top:12px;line-height:1.55">Based on 3 new customers/month × average spend. Adjust your business numbers in Settings to see your actual ROI.</div>
+          </div>
+          <div style="background:var(--orm);border:1px solid var(--orb);border-radius:var(--rs);padding:14px 16px;margin-top:16px">
+            <div style="font-family:'Baloo 2';font-weight:700;color:var(--ord)">📈 Tip: Post Reels on Tuesday & Friday</div>
+            <div style="font-size:13px;color:var(--t2);margin-top:3px">Businesses in <span id="tipCity">your city</span> get 2× more reach on these days. Click "Reel Script" to create one now.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SETTINGS PANEL ═══ -->
+      <div class="panel" id="panel-settings">
+        <div class="panel-title">⚙️ Settings</div>
+        <div class="settings-wrap">
+          <div class="settings-section">
+            <div class="settings-section-title">Business Details</div>
+            <div class="settings-section-sub">Update your business information — this improves all AI-generated content.</div>
+            <div class="field"><label>Business Name</label><input class="inp" id="setBiz"/></div>
+            <div class="field"><label>City</label><input class="inp" id="setCity"/></div>
+            <div class="field"><label>Services / Products</label><input class="inp" id="setServices" placeholder="e.g. Sarees, Lehengas, Facials, Hair colour"/></div>
+            <div class="field"><label>Average customer spend (₹)</label><input class="inp" id="setAvgSpend" type="number" placeholder="e.g. 1200"/></div>
+            <button class="btn btn-or btn-sm" onclick="saveSettings()">Save Changes</button>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">🤖 Claude AI Key</div>
+            <div class="settings-section-sub">Add your Claude API key to enable real AI-generated content instead of templates. Free credits available at <a href="https://console.anthropic.com" target="_blank" style="color:var(--or);font-weight:600">console.anthropic.com</a></div>
+            <div class="field">
+              <label>API Key</label>
+              <div class="api-key-wrap">
+                <input class="inp" id="setApiKey" type="password" placeholder="sk-ant-api03-..."/>
+                <button class="api-toggle" onclick="toggleApiKey()">Show</button>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="btn btn-or btn-sm" onclick="saveApiKey()">Save Key</button>
+              <span id="apiKeySt" style="font-size:12px;color:var(--t3)"></span>
+            </div>
+            <div style="margin-top:10px;background:var(--bg2);border-radius:9px;padding:11px 13px;font-size:12px;color:var(--t2);line-height:1.6">🔒 Stored only in your browser. Never sent anywhere except Anthropic's API.</div>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">💬 Feedback</div>
+            <div class="settings-section-sub">You are testing VyaparAI beta. Your feedback directly shapes what we build next.</div>
+            <div class="field"><label>Rate this tool</label>
+              <div class="feedback-stars" id="fbStars">
+                <button class="star-btn" data-v="1" onclick="rateStar(this)">⭐</button>
+                <button class="star-btn" data-v="2" onclick="rateStar(this)">⭐</button>
+                <button class="star-btn" data-v="3" onclick="rateStar(this)">⭐</button>
+                <button class="star-btn" data-v="4" onclick="rateStar(this)">⭐</button>
+                <button class="star-btn" data-v="5" onclick="rateStar(this)">⭐</button>
+              </div>
+            </div>
+            <div class="field"><label>What feature matters most to you?</label>
+              <div class="chip-row" id="fbFeature">
+                <div class="chip chip-sm" onclick="this.classList.toggle('sel')">AI Content</div>
+                <div class="chip chip-sm" onclick="this.classList.toggle('sel')">Hindi/Gujarati</div>
+                <div class="chip chip-sm" onclick="this.classList.toggle('sel')">WhatsApp</div>
+                <div class="chip chip-sm" onclick="this.classList.toggle('sel')">Google Reviews</div>
+                <div class="chip chip-sm" onclick="this.classList.toggle('sel')">Festivals</div>
+                <div class="chip chip-sm" onclick="this.classList.toggle('sel')">Reels</div>
+              </div>
+            </div>
+            <div class="field"><label>Thoughts / suggestions</label>
+              <textarea class="inp" id="fbText" style="min-height:80px" placeholder="What works, what doesn't, what do you wish it could do?"></textarea>
+            </div>
+            <button class="btn btn-or btn-sm" onclick="submitFeedback()">Submit Feedback →</button>
+          </div>
+
+          <div style="background:var(--orm);border:1px solid var(--orb);border-radius:var(--r);padding:18px">
+            <div style="font-family:'Baloo 2';font-weight:700;font-size:15px;color:var(--ord);margin-bottom:4px">🎉 Free Trial Active</div>
+            <div style="font-size:13px;color:var(--t2);margin-bottom:12px">30-day free trial. Upgrade to unlock unlimited content after trial.</div>
+            <button class="btn btn-or btn-sm" onclick="toast('Upgrade coming soon! Thank you for testing 🙏')">Upgrade — ₹799/mo</button>
+          </div>
+
+          <button style="background:none;border:none;color:var(--t3);font-size:13px;cursor:pointer;font-family:inherit;margin-top:8px" onclick="if(confirm('Reset and start fresh?'))location.reload()">Reset & Start Over</button>
+        </div>
+      </div>
+
+    </div><!-- end dash-main -->
+  </div><!-- end dash-layout -->
+</div><!-- end pg-dash -->
+
+<script>
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+const S = {
+  biz:'', city:'', cat:'', catLabel:'', lang:'en', services:'',
+  schedule:[], apiKey:localStorage.getItem('vyapar_ak')||'',
+  connected:{ig:false,fb:false,wa:true,g:false},
+  customers:[],
+  createType:'', createLang:'en', createTone:'Festive', brief:'', photos:[], photoData:[],
+  filter:'all',
+  avgSpend:800,
+  fbRating:0
+};
+
+// ══════════════════════════════════════════════
+// CATEGORIES
+// ══════════════════════════════════════════════
+const CATS=[
+  {id:'beauty',icon:'💇',label:'Beauty & Salon'},
+  {id:'food',icon:'🍱',label:'Restaurant / Food'},
+  {id:'clothes',icon:'👗',label:'Clothing & Fashion'},
+  {id:'medical',icon:'💊',label:'Medical / Clinic'},
+  {id:'electronics',icon:'📱',label:'Electronics'},
+  {id:'grocery',icon:'🛒',label:'Kirana / Grocery'},
+  {id:'education',icon:'📚',label:'Coaching / Classes'},
+  {id:'repair',icon:'🔧',label:'Repair & Service'},
+  {id:'jewellery',icon:'💍',label:'Jewellery'},
+  {id:'gym',icon:'🏋️',label:'Gym & Fitness'},
+  {id:'other',icon:'🏪',label:'Other Business'},
+];
+
+// ══════════════════════════════════════════════
+// FESTIVALS DATABASE
+// ══════════════════════════════════════════════
+const FESTIVALS = [
+  {name:'Diwali',emoji:'🪔',month:'October',day:20,tip:'Best time to promote festive offers and special products',color:'#FEF9C3'},
+  {name:'Navratri',emoji:'💃',month:'October',day:3,tip:'Great for fashion, jewellery and festive food promotions'},
+  {name:'Dussehra / Vijayadashami',emoji:'🏹',month:'October',day:12,tip:'Good for new beginnings — launch offers and new products'},
+  {name:'Dhanteras',emoji:'🪙',month:'October',day:18,tip:'Peak shopping day — push discounts and gift offers'},
+  {name:'Bhai Dooj',emoji:'🎁',month:'October',day:22,tip:'Gift and service promotions for siblings'},
+  {name:'Chhath Puja',emoji:'🌅',month:'October',day:28,tip:'Big in UP, Bihar — focus on traditional content'},
+  {name:'Eid-ul-Adha',emoji:'🌙',month:'June',day:7,tip:'Major festival — offer special packages for families'},
+  {name:'Christmas',emoji:'🎄',month:'December',day:25,tip:'Great for all businesses — festive sales and year-end offers'},
+  {name:'New Year',emoji:'🎉',month:'January',day:1,tip:'Biggest opportunity — year-start offers and resolutions content'},
+  {name:'Makar Sankranti / Lohri',emoji:'🪁',month:'January',day:14,tip:'North India and Gujarat focus — traditional food, kites, harvest'},
+  {name:'Republic Day',emoji:'🇮🇳',month:'January',day:26,tip:'Patriotic content, national pride — broad reach'},
+  {name:'Valentine\'s Day',emoji:'❤️',month:'February',day:14,tip:'Couples and gifting — great for beauty, restaurants, fashion'},
+  {name:'Women\'s Day',emoji:'👩',month:'March',day:8,tip:'Strong content opportunity — female-owned or female-serving businesses'},
+  {name:'Holi',emoji:'🎨',month:'March',day:7,tip:'Colourful, fun content. Great for all businesses.'},
+  {name:'Ugadi / Gudi Padwa',emoji:'🌸',month:'March',day:30,tip:'New Year for Marathi and Telugu communities — new year offers'},
+  {name:'Ram Navami',emoji:'🙏',month:'April',day:6,tip:'Traditional religious content — respectful brand messaging'},
+  {name:'Akshaya Tritiya',emoji:'💛',month:'April',day:30,tip:'Best day for gold and jewellery promotions — high buying intent'},
+  {name:'Eid-ul-Fitr',emoji:'🌙',month:'March',day:31,tip:'Big celebration — food, fashion, gifts all do well'},
+  {name:'Mother\'s Day',emoji:'🌹',month:'May',day:11,tip:'Huge for beauty, food, fashion — emotional content works best'},
+  {name:'Independence Day',emoji:'🇮🇳',month:'August',day:15,tip:'Patriotic content — wide reach, all audiences'},
+  {name:'Janmashtami',emoji:'🦚',month:'August',day:16,tip:'Krishna birth — devotional and festive content'},
+  {name:'Ganesh Chaturthi',emoji:'🐘',month:'August',day:27,tip:'Huge in Maharashtra — modak, decoration, festive food'},
+  {name:'Onam',emoji:'🌸',month:'September',day:5,tip:'Kerala festival — traditional food and cultural content'},
+  {name:'Durga Puja',emoji:'🌺',month:'October',day:2,tip:'Big in Bengal — fashion, food, cultural content'},
+  {name:'Pongal',emoji:'🍚',month:'January',day:15,tip:'South India harvest festival — traditional food content'},
+];
+
+// ══════════════════════════════════════════════
+// CONTENT TEMPLATES (multilingual)
+// ══════════════════════════════════════════════
+const LANGS={en:'English',hi:'Hindi',gu:'Gujarati',mr:'Marathi',pa:'Punjabi'};
+const GREETINGS={en:'Namaste',hi:'नमस्ते',gu:'જય શ્રી કૃષ્ણ',mr:'नमस्कार',pa:'ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ'};
+
+const T={
+  en:{
+    post:(b,cat,city,sv,tone,brief)=>{
+      const svc=sv||cat;
+      const tones={
+        Festive:`✨ ${brief||`Get the best ${svc} this festive season`}!\n\n🎉 We at ${b} have something special just for you. Visit us in ${city} and experience the difference!\n\n✅ Quality you can trust\n✅ Best prices in ${city}\n\n📍 Come visit us or DM to book!\n\n`,
+        Fun:`🔥 You NEED to see this! ${brief||`Our ${svc} game is on ANOTHER LEVEL`} 🚀\n\n${b} is where ${city} comes for the best ${svc}!\n\nDon't believe us? Come check it out! 😄\n\n📍 DM us or drop by!\n\n`,
+        Professional:`At ${b}, we believe in quality, consistency and customer satisfaction.\n\n${brief||`Our ${svc} services are crafted with expertise and care`}.\n\nVisit us in ${city} and experience the difference.\n\n📍 Appointments available — DM or call us.\n\n`,
+        Premium:`✨ ${brief||`Discover our premium ${svc} collection`}.\n\nAt ${b}, we curate only the finest for our valued customers in ${city}. Quality that speaks for itself.\n\nBy appointment only. DM to schedule your visit.\n\n`,
+        Emotional:`💛 ${brief||`Some things are worth doing perfectly`}.\n\nAt ${b}, every customer is family. We pour our heart into every ${svc} we provide — because you deserve nothing less.\n\nCome see us in ${city}. 🙏\n\n`,
+        Simple:`${brief||`New at ${b}`}!\n\n${svc} available now in ${city}.\nContact us to know more.\n📍 ${b}, ${city}\n\n`
+      };
+      return(tones[tone]||tones.Professional)+'#'+city.replace(/\s/g,'')+'Business #'+cat.replace(/\s/g,'')+'India #LocalBusiness #SmallBusinessIndia #SupportLocal';
+    },
+    reel:(b,cat,city,sv,tone,brief)=>`🎬 REEL SCRIPT — 15 seconds\n\n[0:00–0:03] HOOK — TEXT OVERLAY: "${brief?brief.split(' ').slice(0,6).join(' ')+'...':`Still overpaying for ${sv||cat}?`}"\n  ↳ Camera: Close-up of your product/workspace\n  ↳ Energy: Fast cuts, eye-catching\n\n[0:03–0:08] SHOWCASE — Show your best work/products\n  ↳ TEXT: "${b} — ${city}'s most trusted ${sv||cat}"\n  ↳ Add: Logo watermark top-right\n\n[0:08–0:13] OFFER / CALL TO ACTION\n  ↳ TEXT: "${brief||`Quality ${sv||cat} at prices you'll love`}"\n  ↳ Add: Price or offer badge if applicable\n\n[0:13–0:15] END CARD\n  ↳ TEXT: "DM us or visit today!"\n  ↳ Add: Your WhatsApp number\n\n---\n📝 CAPTION (paste this in Instagram):\n${b} in ${city} — ${brief||`the best ${sv||cat} you'll find`}. Visit us today! 🙌\n\n#${city.replace(/\s/g,'')}Reels #${cat.replace(/\s/g,'')} #LocalBusiness #IndiaSmallBusiness`,
+    story:(b,cat,city,sv,tone,brief)=>`⭕ STORY GUIDE — 4 Slides\n\nSlide 1 — MORNING OPENER\n📸 Photo: Your shop entrance or you smiling\n✍️ Text: "Good morning, ${city}! 🌅"\n🎯 Sticker: Location tag (tag your business)\n\nSlide 2 — TODAY'S HIGHLIGHT\n📸 Photo: Your best product/service today\n✍️ Text: "${brief||`Today's special at ${b}`}"\n🎯 Sticker: Poll — "Would you try this? 👇" Yes / Definitely!\n\nSlide 3 — OFFER OR CTA\n📸 Photo: Product or team photo\n✍️ Text: "Book your slot today! 📞"\n🎯 Sticker: Link sticker (add your WhatsApp link)\n\nSlide 4 — THANK YOU\n📸 Photo: Any warm photo\n✍️ Text: "Thank you for supporting ${b} 🙏"\n🎯 Sticker: Emoji slider — "How much do you love us? 💛"`,
+    wa:(b,cat,city,sv,tone,brief,type)=>{
+      const msgs={
+        'Festival offer':`Hello! 🪔\n\nThis is ${b}, your trusted ${cat} in ${city}.\n\n🎉 ${brief||`We have a special festive offer just for you`}!\n\nReply to know more or visit us in ${city}. Offer is for a limited time only!\n\n📍 ${b}, ${city} 😊`,
+        'New product/service':`Hello! 👋\n\nExciting news from ${b}!\n\n🆕 ${brief||`We have something new and amazing for you`}.\n\nBe the first to experience it! Contact us or drop by in ${city}.\n\n📍 ${b}, ${city}`,
+        'Discount sale':`Hello! 🎉\n\nBIG NEWS from ${b}!\n\n💰 ${brief||`Huge discounts — today only`}!\n\nDon't miss out — limited time offer in ${city}!\n\n📍 ${b}, ${city} 😊`,
+        'Appointment reminder':`Hello! 📅\n\nThis is a reminder from ${b}.\n\n${brief||`We look forward to seeing you soon`}!\n\nIf you need to reschedule, just reply here.\n\n📍 ${b}, ${city}`,
+        'General update':`Hello! 👋\n\nUpdate from ${b}, ${city}.\n\n${brief||`We have exciting news to share with you`}!\n\nReply or visit us to know more.\n\n📍 ${b}, ${city} 🙏`
+      };
+      return msgs[type]||msgs['General update'];
+    }
+  },
+  hi:{
+    post:(b,cat,city,sv,tone,brief)=>`✨ ${brief||`${city} में ${sv||cat} के लिए सबसे अच्छी जगह`}!\n\n${b} में आपका स्वागत है!\n\n✅ Expert team\n✅ Best prices in ${city}\n✅ Quality guaranteed\n\n📍 आज ही आएं या DM करें!\n\n#${city.replace(/\s/g,'')} #LocalBusiness #IndiaKaVyapar #SmallBusiness`,
+    reel:(b,cat,city,sv,tone,brief)=>`🎬 रील स्क्रिप्ट — 15 सेकंड\n\n[0:00–0:03] HOOK: "${brief?brief.split(' ').slice(0,5).join(' '):`${city} में ${sv||cat} के लिए ज़्यादा pay कर रहे हो?`}"\n\n[0:03–0:08] अपना काम/products दिखाओ\n  TEXT: "${b} — ${city} का सबसे trusted ${sv||cat}"\n\n[0:08–0:13] Offer/CTA\n  TEXT: "${brief||`Quality ${sv||cat}`} best price में"\n\n[0:13–0:15] End card: "DM करो या आज ही आओ!"\n\n---\n📝 CAPTION:\n${b}, ${city} — ${brief||`सबसे अच्छा ${sv||cat}`}। आज ही आएं! 🙌\n\n#${city.replace(/\s/g,'')} #LocalBusiness #IndiaReels`,
+    story:(b,cat,city,sv,tone,brief)=>`⭕ स्टोरी गाइड — 4 Slides\n\nSlide 1: "सुप्रभात ${city}! 🌅" + Location sticker\nSlide 2: "${brief||`आज की special service`}" + Poll: "Try करोगे? Yes/Definitely"\nSlide 3: "Book करो आज!" + WhatsApp link\nSlide 4: "${b} को support करने का धन्यवाद 🙏"`,
+    wa:(b,cat,city,sv,tone,brief,type)=>`नमस्ते! 👋\n\nयह ${b} की तरफ से है — ${city} में ${cat}।\n\n🎯 ${brief||`इस हफ्ते special offer — सिर्फ आपके लिए`}!\n\nCall करें या reply करें!\n\n📍 ${city} | ${b}`
+  },
+  gu:{
+    post:(b,cat,city,sv,tone,brief)=>`✨ ${brief||`${city}માં ${sv||cat} માટે`}!\n\n${b}માં આવો!\n✅ Expert team · ✅ Best prices · ✅ Quality guaranteed\n\n📍 આજે appointment book કરો!\n\n#${city.replace(/\s/g,'')} #LocalBusiness #GujaratBusiness`,
+    reel:(b,cat,city,sv,tone,brief)=>`🎬 રીલ સ્ક્રિપ્ટ — 15 સેકન્ડ\n\n[0:00–0:03] "${brief?brief.split(' ').slice(0,5).join(' '):`${city}માં ${sv||cat} માટે ઘણું ભરો?`}"\n[0:03–0:08] Workspace/products fast cuts\n[0:08–0:13] "${b} — Quality. Trust. Value."\n[0:13–0:15] "DM કરો!"\n\n📝 Caption: ${b}, ${city} — ${brief||`Best ${sv||cat}`}! #${city.replace(/\s/g,'')} #GujaratBusiness`,
+    story:(b,cat,city,sv,tone,brief)=>`⭕ સ્ટોરી\nSlide 1: "સુપ્રભાત ${city}! 🌅" | Slide 2: "${brief||'Today special'}" + Poll | Slide 3: "Book now!" + WA link | Slide 4: "${b}ને support thanks 🙏"`,
+    wa:(b,cat,city,sv,tone,brief,type)=>`જય શ્રી કૃષ્ણ! 👋\n\n${b} — ${city}ના ${cat}.\n\n🎯 ${brief||`Special offer — ફક્ત customers માટે`}!\n\nCall/Reply:\n📍 ${city} | ${b}`
+  },
+  mr:{
+    post:(b,cat,city,sv,tone,brief)=>`✨ ${brief||`${city}मध्ये ${sv||cat}`}!\n\n${b}मध्ये या!\n✅ Expert team · ✅ Best prices · ✅ Quality\n\n📍 आजच भेट द्या!\n\n#${city.replace(/\s/g,'')} #LocalBusiness #MaharashtraBusiness`,
+    reel:(b,cat,city,sv,tone,brief)=>`🎬 रील स्क्रिप्ट\n[0:00] "${brief?brief.split(' ').slice(0,5).join(' '):`${city}मध्ये जास्त पैसे?`}"\n[0:03] Products/workspace\n[0:08] "${b} — Quality. Trust."\n[0:13] "DM करा!" [0:15] End card\n\n📝 Caption: ${b}, ${city}. #MaharashtraBusiness`,
+    story:(b,cat,city,sv,tone,brief)=>`⭕ स्टोरी\nSlide 1: "सुप्रभात ${city}!" | Slide 2: "${brief||'आजचं special'}" | Slide 3: "Book!" | Slide 4: "धन्यवाद 🙏"`,
+    wa:(b,cat,city,sv,tone,brief,type)=>`नमस्कार! 👋\n\n${b} — ${city}मधील ${cat}.\n\n🎯 ${brief||`Special offer`}!\n\nCall/Reply:\n📍 ${city} | ${b}`
+  },
+  pa:{
+    post:(b,cat,city,sv,tone,brief)=>`✨ ${brief||`${city}ਵਿੱਚ ${sv||cat}`}!\n\n${b}ਵਿੱਚ ਆਓ!\n✅ Expert team · ✅ Best prices · ✅ Quality\n\n📍 ਅੱਜ ਆਓ!\n\n#${city.replace(/\s/g,'')} #LocalBusiness #PunjabBusiness`,
+    reel:(b,cat,city,sv,tone,brief)=>`🎬 ਰੀਲ ਸਕ੍ਰਿਪਟ\n[0:00] "${brief?brief.split(' ').slice(0,5).join(' '):`${city}ਵਿੱਚ ਜ਼ਿਆਦਾ ਦੇਂਦੇ?`}"\n[0:03] Products fast cuts\n[0:08] "${b} — Quality. Trust."\n[0:13] "DM ਕਰੋ!" [0:15] End\n\n📝 Caption: ${b}, ${city}. #PunjabBusiness`,
+    story:(b,cat,city,sv,tone,brief)=>`⭕ ਸਟੋਰੀ\nSlide 1: "ਸੁਪ੍ਰਭਾਤ ${city}!" | Slide 2: "${brief||'ਅੱਜ ਦਾ special'}" | Slide 3: "Book!" | Slide 4: "ਧੰਨਵਾਦ 🙏"`,
+    wa:(b,cat,city,sv,tone,brief,type)=>`ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ! 👋\n\n${b} — ${city}.\n\n🎯 ${brief||`Special offer`}!\n\nCall/Reply:\n📍 ${city} | ${b}`
+  }
+};
+
+const SONGS=[
+  {name:'Kesariya (Lo-fi)',artist:'Arijit Singh',vibe:'Emotional / brand story',em:'🎵'},
+  {name:'Pasoori',artist:'Ali Sethi & Shae Gill',vibe:'Vibrant, festive',em:'🎤'},
+  {name:'Calm Lo-fi Beat',artist:'Royalty-free · Trending',vibe:'Product showcase / calm',em:'🎶'},
+  {name:'Trending Reels Audio',artist:'Search in Instagram today',vibe:'Funny / relatable',em:'🔥'},
+  {name:'Raataan Lambiyaan',artist:'Jubin Nautiyal',vibe:'Heartwarming',em:'🌙'},
+  {name:'Apna Bana Le',artist:'Arijit Singh',vibe:'Emotional / festive',em:'💛'},
+];
+
+const HASHTAGS={
+  en:(b,c,city)=>`#${city.replace(/\s/g,'')} #${c.replace(/\s/g,'')}India #LocalBusiness #SmallBusiness #IndianBusiness #SupportLocal`,
+  hi:(b,c,city)=>`#${city.replace(/\s/g,'')} #LocalBusiness #IndiaKaVyapar #देसीबिज़नेस`,
+  gu:(b,c,city)=>`#${city.replace(/\s/g,'')} #GujaratBusiness #LocalBusiness #ગુજરાત`,
+  mr:(b,c,city)=>`#${city.replace(/\s/g,'')} #MaharashtraBusiness #LocalBusiness #महाराष्ट्र`,
+  pa:(b,c,city)=>`#${city.replace(/\s/g,'')} #PunjabBusiness #LocalBusiness #ਪੰਜਾਬ`,
+};
+
+const REVIEWS_DATA=[
+  {id:1,name:'Priya Sharma',initials:'PS',stars:5,date:'2 days ago',text:'Absolutely amazing! Best in the city. I have been coming here for 2 years and never disappointed. Staff is very friendly and professional.',replied:false},
+  {id:2,name:'Rahul Mehta',initials:'RM',stars:4,date:'1 week ago',text:'Good experience overall. Quality is great and prices are reasonable. Will definitely come back.',replied:true,reply:'Thank you so much Rahul! We are so happy you had a great experience. See you again soon! 🙏'},
+  {id:3,name:'Anita Patel',initials:'AP',stars:5,date:'2 weeks ago',text:'Best place in the city! I tell all my friends and family about this place.',replied:false},
+  {id:4,name:'Deepak Kumar',initials:'DK',stars:2,date:'3 weeks ago',text:'Waiting time was too long. Had to wait 45 minutes even with an appointment.',replied:false},
+  {id:5,name:'Sunita Verma',initials:'SV',stars:5,date:'1 month ago',text:'Wonderful experience every time. Very clean and hygienic. Highly recommend!',replied:true,reply:'Thank you Sunita ji! Your kind words motivate our entire team. 😊'},
+];
+
+let CUST_VISITS=[
+  {name:'Priya Kotak',service:'Facial',time:'11:30am',revStatus:'sent'},
+  {name:'Meena Patel',service:'Hair colour',time:'2:15pm',revStatus:'pending'},
+];
+
+// ══════════════════════════════════════════════
+// PAGE NAV
+// ══════════════════════════════════════════════
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ══════════════════════════════════════════════
+// SETUP
+// ══════════════════════════════════════════════
+(function initSetup(){
+  document.getElementById('catGrid').innerHTML=CATS.map(c=>
+    `<div class="cat-card" data-id="${c.id}" data-label="${c.label}" onclick="pickCat(this)"><span class="ci">${c.icon}</span><span class="cn">${c.label}</span></div>`
+  ).join('');
+  const langs=[{c:'en',l:'English'},{c:'hi',l:'हिंदी'},{c:'gu',l:'ગુજ.'},{c:'mr',l:'मराठी'},{c:'pa',l:'ਪੰਜਾਬੀ'}];
+  document.getElementById('s3langs').innerHTML=langs.map(l=>
+    `<div class="chip${l.c==='en'?' sel':''}" onclick="pickSetupLang(this,'${l.c}')">${l.l}</div>`
+  ).join('');
+})();
+
+function pickCat(el){
+  document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.cat=el.dataset.id; S.catLabel=el.dataset.label;
+}
+function pickSetupLang(el,c){
+  document.querySelectorAll('#s3langs .chip').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel'); S.lang=c;
+}
+function goStep2(){
+  const bn=document.getElementById('bizName').value.trim();
+  const bc=document.getElementById('bizCity').value.trim();
+  if(!bn||!bc){toast('Please fill in business name and city ⚠️');return;}
+  if(!S.cat){toast('Please select your business type ⚠️');return;}
+  S.biz=bn; S.city=bc;
+  goStep(2);
+}
+function goStep3(){
+  goStep(3);
+  document.getElementById('s3biz').textContent=S.biz;
+  document.getElementById('s3city').textContent=S.city;
+}
+function goStep(n){
+  [1,2,3].forEach(i=>{const el=document.getElementById('step'+i);if(el)el.style.display='none';});
+  document.getElementById('step'+n).style.display='block';
+  const fills={1:'33%',2:'66%',3:'100%'};
+  document.getElementById('progFill').style.width=fills[n];
+  document.getElementById('progLabel').textContent=`Step ${n} of 3`;
+}
+function doConnect(p){
+  const btn=document.getElementById('cb-'+p);
+  const row=document.getElementById('cr-'+p);
+  const st=document.getElementById('cs-'+p);
+  if(!btn||!row)return;
+  btn.innerHTML='<span class="spin"></span>';btn.disabled=true;
+  setTimeout(()=>{
+    S.connected[p]=true;
+    row.classList.add('done');
+    if(st)st.textContent='✓ Connected';
+    btn.textContent='✓ Done';btn.className='connect-btn done';btn.disabled=false;
+    toast(p.toUpperCase()+' connected! ✅');
+  },1600);
+}
+
+// ══════════════════════════════════════════════
+// LAUNCH
+// ══════════════════════════════════════════════
+function launch(){
+  S.services=document.getElementById('s3services').value;
+  showLoader(['Analysing your business...','Writing Instagram posts...','Creating Reel scripts...','Planning Stories...','Writing WhatsApp messages...','Setting up your dashboard...']);
+  setTimeout(()=>{
+    buildSchedule();
+    buildDashboard();
+    hideLoader();
+    showPage('dash');
+    toast('Your dashboard is ready! 🎉');
+  },2200);
+}
+function buildDashboard(){
+  // Names and meta
+  document.getElementById('sbName').textContent=S.biz;
+  document.getElementById('sbMeta').textContent=S.city+' · '+S.catLabel;
+  document.getElementById('topBizName').textContent=S.biz;
+  document.getElementById('tipCity').textContent=S.city;
+  // Greeting
+  const h=new Date().getHours();
+  const g=h<12?'Good morning':(h<17?'Good afternoon':'Good evening');
+  document.getElementById('dashGreeting').textContent=(h<12?'Good morning':(h<17?'Good afternoon':'Good evening'))+', '+S.biz.split(' ')[0]+'! 👋';
+  // Settings fields
+  const sb=document.getElementById('setBiz');const sc=document.getElementById('setCity');
+  if(sb)sb.value=S.biz;if(sc)sc.value=S.city;
+  const ss=document.getElementById('setServices');if(ss)ss.value=S.services;
+  // API key
+  const sk=document.getElementById('setApiKey');if(sk&&S.apiKey)sk.value=S.apiKey;
+  if(S.apiKey){const d=document.getElementById('aiStatusDot');if(d)d.style.display='inline-flex';}
+  buildDailyPulse();
+  buildFestivalStrip();
+  buildAlerts();
+  buildHomeSchedulePreview();
+  buildAnalytics();
+  buildFestivalCalendar();
+  renderReviews();
+  renderCustTable();
+  updateWAReviewPreview();
+}
+function runDemo(){
+  S.biz='Sharma Beauty Parlour';S.city='Surat';S.cat='beauty';S.catLabel='Beauty & Salon';S.lang='en';S.services='Facials, Hair colour, Waxing, Bridal makeup';
+  launch();
+}
+
+// ══════════════════════════════════════════════
+// DAILY PULSE
+// ══════════════════════════════════════════════
+function buildDailyPulse(){
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const today=days[new Date().getDay()];
+  const upcoming=getUpcomingFestival();
+  let sub='';
+  const sugs=[];
+  if(upcoming&&upcoming.daysLeft<=7){
+    sub=`${upcoming.festival.emoji} ${upcoming.festival.name} is in ${upcoming.daysLeft} days! Perfect time to post.`;
+    sugs.push({text:`🎉 Create ${upcoming.festival.name} post`,action:`openFestModal(upcoming&&upcoming.festival.name||'')`});
+    sugs.push({text:`💬 Send ${upcoming.festival.name} WhatsApp offer`,action:`startWACampaign('${upcoming.festival.name} offer')`});
+  } else {
+    const tips=['Tuesday & Friday are peak Reel days for most businesses.','Businesses posting 5+ times/week get 3x more reach.','Responding to Google reviews within 24hrs boosts your ranking.'];
+    sub=tips[new Date().getDate()%3];
+  }
+  sugs.push({text:`📸 Post about ${S.services.split(',')[0]||S.catLabel}`,action:`startCreate('post')`});
+  sugs.push({text:`🎬 Create a Reel`,action:`startCreate('reel')`});
+  sugs.push({text:`⭐ Reply to Google reviews`,action:`swPanel('reviews',document.getElementById('sbl-reviews'))`});
+  document.getElementById('pulseSub').textContent=sub;
+  document.getElementById('pulseSugs').innerHTML=sugs.map(s=>`<div class="pulse-sug" onclick="${s.action}">${s.text}</div>`).join('');
+}
+function getUpcomingFestival(){
+  const now=new Date();
+  const year=now.getFullYear();
+  const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  let closest=null;let minDays=9999;
+  FESTIVALS.forEach(f=>{
+    const fm=monthNames.indexOf(f.month);
+    const fd=new Date(year,fm,f.day);
+    const diff=Math.round((fd-now)/(1000*60*60*24));
+    if(diff>=0&&diff<minDays){minDays=diff;closest={festival:f,daysLeft:diff};}
+  });
+  return closest;
+}
+function buildFestivalStrip(){
+  const uf=getUpcomingFestival();
+  if(!uf||uf.daysLeft>14){document.getElementById('festivalStrip').style.display='none';return;}
+  const f=uf.festival;
+  document.getElementById('festivalStrip').style.display='flex';
+  document.getElementById('festEmoji').textContent=f.emoji;
+  document.getElementById('festName').textContent=f.name+' is in '+uf.daysLeft+' days';
+  document.getElementById('festDate').textContent=f.month+' '+f.day+' — '+f.tip;
+}
+function buildAlerts(){
+  const alerts=[];
+  const uf=getUpcomingFestival();
+  if(uf&&uf.daysLeft<=5)alerts.push({type:'orange',icon:'🎉',text:`<strong>${uf.festival.name}</strong> is in ${uf.daysLeft} days — create your festive campaign before others do!`,action:`openFestModal('${uf.festival.name}')`,actionText:'Create now'});
+  const unReplied=REVIEWS_DATA.filter(r=>!r.replied).length;
+  if(unReplied>0)alerts.push({type:'red',icon:'⭐',text:`<strong>${unReplied} Google reviews</strong> need replies — AI has drafted responses ready to post`,action:`swPanel('reviews',document.getElementById('sbl-reviews'))`,actionText:'Reply now'});
+  alerts.push({type:'green',icon:'📸',text:`<strong>3 customers</strong> found you on Instagram this week. Post consistently to grow this number!`,action:`startCreate('post')`,actionText:'Create post'});
+  alerts.push({type:'blue',icon:'💡',text:`<strong>Tip:</strong> Businesses that reply to reviews get 35% more clicks on Google Maps.`,action:`swPanel('reviews',document.getElementById('sbl-reviews'))`,actionText:'View reviews'});
+  document.getElementById('alertsBox').innerHTML=alerts.map(a=>
+    `<div class="alert-item ${a.type}"><div class="alert-icon">${a.icon}</div><div class="alert-text">${a.text}</div><div class="alert-action"><button class="btn btn-sm" style="background:rgba(0,0,0,.12);color:inherit;padding:6px 12px;border-radius:8px" onclick="${a.action}">${a.actionText}</button></div></div>`
+  ).join('');
+}
+
+// ══════════════════════════════════════════════
+// SCHEDULE
+// ══════════════════════════════════════════════
+const DAY_NAMES=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const SCH_TYPES=[['ig','reel'],['story','wa'],['ig','reel'],['reel','ig'],['ig','story'],['wa','ig'],['reel','ig']];
+
+function getContent(type,v=0){
+  const lang=S.lang;const tmpl=T[lang]||T.en;
+  const b=S.biz,cat=S.catLabel,city=S.city,sv=S.services,tone=S.createTone||'Professional',brief='';
+  let text='',extra=null;
+  if(type==='ig'){
+    text=(tmpl.post||T.en.post)(b,cat,city,sv,tone,brief);
+    extra={hashtags:(HASHTAGS[lang]||HASHTAGS.en)(b,cat,city)};
+  }else if(type==='reel'){
+    text=(tmpl.reel||T.en.reel)(b,cat,city,sv,tone,brief);
+    const songs=[...SONGS].sort(()=>Math.random()-.5).slice(0,3);
+    extra={songs,hashtags:(HASHTAGS[lang]||HASHTAGS.en)(b,cat,city)};
+  }else if(type==='story'){
+    text=(tmpl.story||T.en.story)(b,cat,city,sv,tone,brief);
+  }else if(type==='wa'){
+    text=(tmpl.wa||T.en.wa)(b,cat,city,sv,tone,brief,'General update');
+  }
+  return{type,text,extra,lang};
+}
+function buildSchedule(){
+  S.schedule=[];
+  for(let d=0;d<7;d++){
+    SCH_TYPES[d].forEach((t,v)=>{S.schedule.push({day:d,content:getContent(t,v),aiCreated:false,photos:[]});});
+  }
+}
+function regen(){
+  showLoader(['Generating new content...']);
+  setTimeout(()=>{buildSchedule();renderWeek();hideLoader();toast('Week regenerated! ✨');},1400);
+}
+function renderWeek(){
+  const grid=document.getElementById('weekGrid');if(!grid)return;
+  const today=new Date();
+  const dow=today.getDay();const monOff=dow===0?-6:1-dow;
+  const monday=new Date(today);monday.setDate(today.getDate()+monOff);
+  grid.innerHTML='';
+  for(let d=0;d<7;d++){
+    const date=new Date(monday);date.setDate(monday.getDate()+d);
+    const isToday=date.toDateString()===today.toDateString();
+    const daySlots=S.schedule.filter(s=>s.day===d);
+    let slotsHtml='';
+    daySlots.forEach((s,i)=>{
+      const idx=S.schedule.indexOf(s);
+      if(S.filter!=='all'&&s.content.type!==S.filter)return;
+      const tmap={ig:'📸 Post',reel:'🎬 Reel',story:'⭕ Story',wa:'💬 WhatsApp'};
+      const first=s.content.text.replace(/[🎬⭕💬📸✨🌟🙏🎯🔥]/g,'').split('\n')[0].trim().slice(0,55);
+      slotsHtml+=`<div class="slot ${s.content.type}${s.aiCreated?' ai-dot':''}" onclick="openSlot(${idx})" style="position:relative">
+        <div class="slot-type">${tmap[s.content.type]||s.content.type}</div>
+        <div class="slot-preview">${first}...</div>
+      </div>`;
+    });
+    if(!slotsHtml)slotsHtml='<div style="padding:8px 6px;font-size:10px;color:var(--t3);text-align:center">No match</div>';
+    const col=document.createElement('div');
+    col.className='day-col'+(isToday?' today':'');
+    col.innerHTML=`<div class="day-head"><div class="day-name">${DAY_NAMES[d]}</div><div class="day-num">${date.getDate()}</div></div><div class="day-slots">${slotsHtml}</div>`;
+    grid.appendChild(col);
+  }
+}
+function filterType(el,f){
+  document.querySelectorAll('.type-chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');S.filter=f;renderWeek();
+}
+function changeLang(el,code){
+  document.querySelectorAll('.lchip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');S.lang=code;
+  showLoader(['Translating to '+LANGS[code]+'...']);
+  setTimeout(()=>{buildSchedule();renderWeek();hideLoader();toast('Content updated in '+LANGS[code]+'! ✅');},1100);
+}
+function buildHomeSchedulePreview(){
+  const items=S.schedule.slice(0,3);
+  const tmap={ig:'📸 Post',reel:'🎬 Reel',story:'⭕ Story',wa:'💬 WA'};
+  const tclr={ig:'background:var(--inm)',reel:'background:var(--pum)',story:'background:var(--orm)',wa:'background:var(--wam)'};
+  document.getElementById('homeSchedulePreview').innerHTML=items.map((s,i)=>{
+    const first=s.content.text.replace(/[🎬⭕💬📸✨🌟🙏🎯🔥]/g,'').split('\n')[0].trim().slice(0,60);
+    const statuses=['🟢 Scheduled today 7pm','🟡 Tomorrow 10am','🔵 Wednesday 6pm'];
+    return`<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd);cursor:pointer" onclick="openSlot(${i})">
+      <div style="width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;${tclr[s.content.type]}">${tmap[s.content.type]}</div>
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${first}...</div><div style="font-size:11px;color:var(--t3);margin-top:1px">${statuses[i]}</div></div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+// SLOT MODAL (view/edit schedule cards)
+// ══════════════════════════════════════════════
+function openSlot(idx){
+  const s=S.schedule[idx];const c=s.content;
+  const tl={ig:'📸 Instagram Post',reel:'🎬 Instagram Reel',story:'⭕ Instagram Story',wa:'💬 WhatsApp Message'};
+  openModal(tl[c.type]||'Content',s.aiCreated?'AI Created ✨':'Generated content — tap text to edit');
+
+  let photoHtml='';
+  if(s.photos&&s.photos.length>0){
+    const cl=s.photos.length===1?'one':'two';
+    photoHtml=`<div class="result-photos ${cl}" style="padding:0 0 14px">${s.photos.map(p=>`<img src="${p}" style="max-height:180px"/>`).join('')}</div>`;
+  }
+
+  let inner=photoHtml;
+  if(c.type==='ig'){
+    inner+=section('📝 Caption — tap to edit',`<div class="editable" contenteditable="true" id="editMain">${c.text}</div>`);
+    if(c.extra?.hashtags)inner+=section('🏷️ Hashtags',`<div class="editable hashtag-box">${c.extra.hashtags}</div>`);
+    inner+=scoreBar(c.text);
+  }else if(c.type==='reel'){
+    inner+=section('🎬 Reel Script',`<div class="editable" contenteditable="true" id="editMain">${c.text}</div>`);
+    if(c.extra?.hashtags)inner+=section('🏷️ Hashtags',`<div class="editable hashtag-box">${c.extra.hashtags}</div>`);
+    if(c.extra?.songs)inner+=section('🎵 Suggested Songs',songsHtml(c.extra.songs));
+  }else if(c.type==='story'){
+    inner+=section('⭕ Story Slides — tap to edit',`<div class="editable" contenteditable="true" id="editMain">${c.text}</div>`);
+  }else{
+    inner+=section('💬 Message — tap to edit',`<div class="editable" contenteditable="true" id="editMain">${c.text}</div>`);
+  }
+
+  inner+=`<div class="result-actions">`;
+  if(['ig','reel','story'].includes(c.type)){
+    inner+=`<button class="act-ig" onclick="postToInsta(${idx})">📸 Post to Instagram</button>`;
+    if(c.type==='reel')inner+=`<button class="act-wa" onclick="openModal('Reel Tips','<div style=\\'font-size:14px;line-height:1.8\\'>1. Copy the caption below<br>2. Open Instagram app<br>3. Record/upload your video<br>4. Paste caption when prompted<br>5. Search for the suggested song in Instagram audio<br>6. Post! ✅</div>')">📱 How to post Reel</button>`;
+  }
+  if(c.type==='wa')inner+=`<button class="act-wa" onclick="sendWASlot(${idx})">💬 Open in WhatsApp</button>`;
+  inner+=`<button class="act-regen" onclick="regenSlot(${idx})">↺ Regenerate</button>`;
+  inner+=`<button class="act-copy" onclick="copySlot(${idx})">📋 Copy</button>`;
+  inner+=`<button class="act-add" onclick="addSlotToday(${idx})">📅 Add to today</button>`;
+  inner+=`</div>`;
+
+  document.getElementById('mBody').innerHTML=inner;
+}
+function section(lbl,inner){return`<div style="margin-bottom:16px"><div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;display:flex;align-items:center;gap:6px">${lbl}</div>${inner}</div>`;}
+function songsHtml(songs){return`<div class="song-list">${songs.map(s=>`<div class="song-row"><div class="song-em">${s.em}</div><div><div class="song-name">${s.name}</div><div class="song-vibe">${s.artist} · ${s.vibe}</div></div></div>`).join('')}</div>`;}
+function scoreBar(text){
+  const len=text.length;const hasEmoji=/[\u{1F300}-\u{1F9FF}]/u.test(text);const hasCTA=/(DM|book|visit|call|tap|click|reply)/i.test(text);const hasHash=/#/.test(text);
+  const scores=[{lbl:'Length',v:Math.min(100,Math.round(len/3)),c:'var(--or)'},{lbl:'Emojis',v:hasEmoji?85:20,c:'var(--pu)'},{lbl:'CTA',v:hasCTA?90:30,c:'var(--in)'},{lbl:'Hashtags',v:hasHash?95:10,c:'var(--bl)'}];
+  return`<div class="score-bar"><div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">Content Score</div>${scores.map(s=>`<div class="score-row" style="margin-bottom:8px"><div class="score-label">${s.lbl}</div><div class="score-track"><div class="score-fill" style="width:${s.v}%;background:${s.c}"></div></div><div class="score-num" style="color:${s.c}">${s.v}</div></div>`).join('')}</div>`;
+}
+function regenSlot(idx){
+  setTimeout(()=>{S.schedule[idx].content=getContent(S.schedule[idx].content.type,Math.floor(Math.random()*3));openSlot(idx);renderWeek();toast('Regenerated! ✨');},700);
+}
+function copySlot(idx){
+  const c=S.schedule[idx].content;
+  let text=c.text;
+  if(c.extra?.hashtags)text+='\n\n'+c.extra.hashtags;
+  const el=document.getElementById('editMain');if(el)text=el.innerText+(c.extra?.hashtags?'\n\n'+c.extra.hashtags:'');
+  navigator.clipboard.writeText(text).then(()=>toast('Copied! 📋')).catch(()=>toast('Select and copy manually 📋'));
+}
+function postToInsta(idx){
+  const el=document.getElementById('editMain');
+  const c=S.schedule[idx].content;
+  let cap=el?el.innerText:c.text;
+  if(c.extra?.hashtags&&!cap.includes('#'))cap+='\n\n'+c.extra.hashtags;
+  navigator.clipboard.writeText(cap).catch(()=>{});
+  closeModal();
+  setTimeout(()=>{
+    window.open('https://www.instagram.com','_blank');
+    toast('Caption copied! ✅ Open Instagram → Create Post → Paste caption');
+  },400);
+}
+function sendWASlot(idx){
+  const el=document.getElementById('editMain');
+  const text=el?el.innerText:S.schedule[idx].content.text;
+  window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
+  closeModal();
+}
+function addSlotToday(idx){
+  const s=S.schedule[idx];
+  toast('Added to today\'s schedule! ✅');
+  closeModal();
+}
+
+// ══════════════════════════════════════════════
+// AI CREATE PANEL
+// ══════════════════════════════════════════════
+function startCreate(type){
+  swPanel('create',document.getElementById('sbl-create'));
+  if(type){
+    const el=document.getElementById('ct-'+type);
+    if(el){
+      document.querySelectorAll('.ctype-card').forEach(c=>c.classList.remove('sel'));
+      el.classList.add('sel');
+      S.createType=type;
+      document.getElementById('btnNextToB').disabled=false;
+    }
+  }
+}
+function pickType(type,el){
+  document.querySelectorAll('.ctype-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');S.createType=type;
+  document.getElementById('btnNextToB').disabled=false;
+  const qs={
+    post:'What is this Instagram post about? E.g. "Diwali offer: 20% off on all sarees this week" or "New hair colour service starting from ₹500 only".',
+    reel:'What should this Reel be about? E.g. "Show our new saree collection arriving this week" or "Behind the scenes at our salon".',
+    story:'What should today\'s Story be about? E.g. "Morning opening, show shop" or "Today\'s special facial offer" or "Customer testimonial".',
+    whatsapp:'What is this WhatsApp message about? E.g. "Diwali offer: 20% off" or "New product launch" or "Weekend appointment slots open".'
+  };
+  document.getElementById('aiQuestion').textContent=qs[type]||qs.post;
+}
+function goCreateA(){
+  document.getElementById('ca-b').style.display='none';
+  document.getElementById('ca-a').style.display='block';
+  S.brief='';S.photos=[];S.photoData=[];
+  document.getElementById('photoGrid').innerHTML='';
+  document.getElementById('briefInput').value='';
+  document.getElementById('briefConfirmed').style.display='none';
+  document.getElementById('btnGenerate').disabled=true;
+}
+function goCreateB(){
+  if(!S.createType){toast('Please select content type ⚠️');return;}
+  document.getElementById('ca-a').style.display='none';
+  document.getElementById('ca-b').style.display='block';
+}
+function submitBrief(){
+  const v=document.getElementById('briefInput').value.trim();
+  if(!v){toast('Please describe what you want ⚠️');return;}
+  S.brief=v;
+  document.getElementById('briefConfirmed').style.display='block';
+  document.getElementById('btnGenerate').disabled=false;
+  toast('Got it! Choose tone and language, then generate ✨');
+}
+function pickTone(el){
+  document.querySelectorAll('.tone-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');S.createTone=el.dataset.tone;
+}
+function pickCreateLang(el){
+  document.querySelectorAll('#createLangRow .chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');S.createLang=el.dataset.lang;
+}
+function handleFiles(e){addPhotos(Array.from(e.target.files));}
+function handleDrag(e){e.preventDefault();document.getElementById('uploadZone').classList.add('hover');}
+function handleDrop(e){
+  e.preventDefault();document.getElementById('uploadZone').classList.remove('hover');
+  addPhotos(Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/')));
+}
+function addPhotos(files){
+  files.slice(0,4-S.photos.length).forEach(file=>{
+    const r=new FileReader();
+    r.onload=ev=>{S.photos.push(file);S.photoData.push(ev.target.result);renderPhotoGrid();};
+    r.readAsDataURL(file);
+  });
+}
+function renderPhotoGrid(){
+  document.getElementById('photoGrid').innerHTML=S.photoData.map((d,i)=>
+    `<div class="photo-thumb"><img src="${d}"/><button class="rm" onclick="removePhoto(${i})">✕</button></div>`
+  ).join('');
+}
+function removePhoto(i){S.photos.splice(i,1);S.photoData.splice(i,1);renderPhotoGrid();}
+
+// ── RANDOMIZATION POOLS (injected into every prompt for uniqueness) ──
+const HOOKS = [
+  "Stop scrolling 👀",
+  "Something special just dropped 🔥",
+  "Locals are loving this 😍",
+  "Your next favourite place is here ✨",
+  "This deserves your attention 💯",
+  "Ye toh dekhna hi padega 👇",
+  "Real ones know this place 🙌",
+  "Everyone in the city is talking about this 💬",
+  "Isko miss karna mat 😤",
+  "We just changed the game 🚀"
+];
+const CTAS = [
+  "Visit us today!",
+  "DM us now — slots filling up fast!",
+  "Book your spot today!",
+  "Try it before everyone else does!",
+  "Message us for details!",
+  "Call now — limited slots!",
+  "Drop a 🔥 in comments if you want this!",
+  "Tag someone who needs to see this!",
+  "Save this post for later 📌",
+  "Link in bio — book now!"
+];
+const VIBES = [
+  "raw and real",
+  "warm and personal",
+  "bold and punchy",
+  "nostalgic and emotional",
+  "aspirational and premium",
+  "fun and cheeky",
+  "community-focused",
+  "urgent and exciting"
+];
+function randItem(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+// ── BRAND MEMORY — persists across generates for consistency ──
+function getBrandProfile(){
+  return {
+    name: S.biz,
+    category: S.catLabel,
+    city: S.city,
+    services: S.services || S.catLabel,
+    tone: S.createTone || 'Festive',
+    language: S.createLang || 'en',
+    audience: S.catLabel==='Beauty & Salon'?'Women 18–45':
+              S.catLabel==='Gym & Fitness'?'Young adults 18–35':
+              S.catLabel==='Restaurant / Food'?'Families & food lovers':
+              S.catLabel==='Coaching / Classes'?'Students & parents':
+              S.catLabel==='Jewellery'?'Women & couples':
+              'Local customers in '+S.city,
+    emojiStyle: ['Festive','Fun'].includes(S.createTone)?'expressive':'minimal',
+    hashtagStyle: 'trending Indian + local',
+    randomHook: randItem(HOOKS),
+    randomCTA: randItem(CTAS),
+    randomVibe: randItem(VIBES)
+  };
+}
+
+// ── MASTER PROMPT BUILDER ──
+function buildPrompt(bp, platform, brief, festival, photoCount){
+  const langNames={en:'English',hi:'Hindi',gu:'Gujarati',mr:'Marathi',pa:'Punjabi'};
+  const platformInstructions={
+    post:`FORMAT: Instagram Post
+- Start with the hook line
+- 3–5 short punchy lines (NOT bullet points — flowing text)
+- Natural emojis throughout (not at every line start)
+- Strong CTA line
+- Line break then hashtags (15–20 relevant tags, mix local + niche + trending)`,
+    reel:`FORMAT: Instagram Reel Script (15–30 seconds)
+Section 1 — HOOK [0:00–0:03]:
+  Visual direction + TEXT OVERLAY on screen
+
+Section 2 — BUILD [0:03–0:10]:
+  What to show visually, text overlays, energy level
+
+Section 3 — OFFER/CLIMAX [0:10–0:13]:
+  The main message / offer / reveal
+
+Section 4 — CTA [0:13–0:15]:
+  Closing text + call to action
+
+---
+CAPTION (for the reel post):
+[Write a punchy caption with emojis + hashtags]
+
+---
+SONG SUGGESTIONS:
+1. [Song name] — [Artist] — [Why it fits this vibe]
+2. [Song name] — [Artist] — [Why it fits this vibe]
+3. [Song name] — [Artist] — [Why it fits this vibe]`,
+    story:`FORMAT: Instagram Story — 4 Slides
+Each slide must have:
+📸 VISUAL: What to film/photograph
+✍️ TEXT OVERLAY: Exact words to write
+🎯 STICKER: Which Instagram sticker to use and what to write on it
+💡 TIP: Quick tip to make this slide pop
+
+Make slides flow as a narrative — slide 1 hooks, 2 shows, 3 offers, 4 closes.`,
+    whatsapp:`FORMAT: WhatsApp Broadcast Message
+- Open with a warm personal greeting (NOT "Hello!")
+- 2–3 short paragraphs max
+- One clear offer or message
+- Friendly CTA
+- Sign off with business name
+- Max 120 words
+- NO hashtags (WhatsApp is personal, not public)`
+  };
+
+  const festivalLine = festival && festival!=='none' ? `Festival/Season/Event: ${festival}` : '';
+  const photoLine = photoCount>0 ? `The customer has uploaded ${photoCount} photo(s) of their business/products. Analyse the images carefully and write content that is DIRECTLY about what you see in the photos — specific details, colours, products, people, atmosphere. Make the viewer feel like they are looking at the same photo.` : '';
+
+  return `You are India's top social media strategist and branding expert for local businesses.
+
+Your job is to create HIGH-CONVERTING, HUMAN-LIKE marketing content that actually performs.
+
+========================
+BUSINESS PROFILE
+========================
+Business Name: ${bp.name}
+Category: ${bp.category}
+City: ${bp.city}
+Services/Products: ${bp.services}
+Target Audience: ${bp.audience}
+Brand Personality: ${bp.tone}
+Language: ${langNames[bp.language]||'English'}
+Platform: ${platform}
+${festivalLine}
+
+========================
+CONTENT BRIEF
+========================
+${brief}
+
+========================
+STYLE DIRECTION
+========================
+Hook to use (adapt it, don't copy verbatim): "${bp.randomHook}"
+CTA to use (adapt naturally): "${bp.randomCTA}"
+Vibe for this piece: ${bp.randomVibe}
+Emoji style: ${bp.emojiStyle}
+Hashtag style: ${bp.hashtagStyle}
+
+${photoLine}
+
+========================
+STRICT RULES
+========================
+1. NEVER sound robotic or AI-generated
+2. NEVER use: "We are excited", "Discover our", "Best services", "Welcome to", "We offer", "Our team"
+3. Use a STRONG first line — make someone stop scrolling
+4. Make content feel emotional, catchy, modern, relatable
+5. Every regeneration must be COMPLETELY DIFFERENT in structure and opening
+6. Use Indian social media style — Hinglish where appropriate if language is English
+7. Make the business feel REAL, LOCAL, and TRUSTWORTHY
+8. Platform-specific tone: Instagram = trendy; WhatsApp = personal; Story = visual
+
+========================
+OUTPUT FORMAT
+========================
+${platformInstructions[platform]||platformInstructions.post}
+
+Generate ONLY the final content. No explanations. No labels like "Hook:" or "Caption:". Just the content itself.`;
+}
+
+async function generateContent(){
+  if(!S.brief){toast('Please describe your content first ⚠️');return;}
+  document.getElementById('ca-b').style.display='none';
+  document.getElementById('ca-c').style.display='block';
+  const res=document.getElementById('resultArea');
+  const langNames={en:'English',hi:'Hindi',gu:'Gujarati',mr:'Marathi',pa:'Punjabi'};
+
+  // Animate loading steps
+  const steps=['Reading your business profile...','Picking the perfect hook...','Writing your content...','Optimising for '+( S.createType==='reel'?'Reels algorithm':'engagement')+'...','Adding local flavour...'];
+  res.innerHTML=`<div class="gen-anim"><div class="loader-ring" style="margin:0 auto 14px"></div><div style="font-family:'Baloo 2';font-weight:700;font-size:17px;margin-bottom:6px" id="genTitle">AI is writing your content...</div><div class="gen-steps" id="genSteps"></div></div>`;
+  document.getElementById('genSteps').innerHTML=steps.map((s,i)=>`<div class="gen-step" id="gs${i}"><span class="step-dot"></span>${s}</div>`).join('');
+  let si=0;
+  const iv=setInterval(()=>{
+    const prev=document.getElementById('gs'+si);if(prev)prev.classList.add('done');
+    si++;const next=document.getElementById('gs'+si);if(next){next.classList.add('active');const t=document.getElementById('genTitle');if(t)t.textContent=next.textContent.trim();}
+    if(si>=steps.length)clearInterval(iv);
+  },380);
+
+  const bp=getBrandProfile();
+  const platformMap={post:'post',reel:'reel',story:'story',whatsapp:'whatsapp'};
+  const platform=platformMap[S.createType]||'post';
+  const festival=S.brief.toLowerCase().includes('day')||S.brief.toLowerCase().includes('diwali')||S.brief.toLowerCase().includes('holi')||S.brief.toLowerCase().includes('eid')||S.brief.toLowerCase().includes('festival')?S.brief:'none';
+  const prompt=buildPrompt(bp,platform,S.brief,festival,S.photoData.length);
+
+  let resultText='';
+  if(S.apiKey){
+    try{
+      const msgs=[];
+      if(S.photoData.length>0){
+        S.photoData.forEach(d=>{
+          const b64=d.split(',')[1];const mt=d.split(';')[0].split(':')[1];
+          msgs.push({type:'image',source:{type:'base64',media_type:mt,data:b64}});
+        });
+      }
+      msgs.push({type:'text',text:prompt});
+      const r=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':S.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({
+          model:'claude-sonnet-4-20250514',
+          max_tokens:1400,
+          temperature:0.95,
+          messages:[{role:'user',content:msgs}]
+        })
+      });
+      const data=await r.json();
+      resultText=data.content?.find(b=>b.type==='text')?.text||'';
+      if(data.error)throw new Error(data.error.message);
+    }catch(e){console.error('AI error:',e);resultText='';}
+  }
+
+  clearInterval(iv);
+
+  if(!resultText){
+    // Fallback templates — also randomised
+    const tmpl=T[S.createLang]||T.en;
+    const b=S.biz,cat=S.catLabel,city=S.city,sv=S.services,tone=S.createTone,brief=S.brief;
+    if(S.createType==='post')resultText=(tmpl.post||T.en.post)(b,cat,city,sv,tone,brief);
+    else if(S.createType==='reel')resultText=(tmpl.reel||T.en.reel)(b,cat,city,sv,tone,brief);
+    else if(S.createType==='story')resultText=(tmpl.story||T.en.story)(b,cat,city,sv,tone,brief);
+    else resultText=(tmpl.wa||T.en.wa)(b,cat,city,sv,tone,brief,'General update');
+  }
+
+  const hashtags=(HASHTAGS[S.createLang]||HASHTAGS.en)(S.biz,S.catLabel,S.city);
+  const typeLabels={post:'📸 Instagram Post',reel:'🎬 Instagram Reel',story:'⭕ Story Guide',whatsapp:'💬 WhatsApp Message'};
+
+  let photosHtml='';
+  if(S.photoData.length>0){
+    const cl=S.photoData.length===1?'one':'two';
+    photosHtml=`<div class="result-photos ${cl}">${S.photoData.map(d=>`<img src="${d}"/>`).join('')}</div>`;
+  }
+
+  const isFallback=!S.apiKey;
+  res.innerHTML=`
+    ${isFallback?`<div style="background:var(--blm);border:1px solid #BFDBFE;border-radius:9px;padding:11px 14px;font-size:13px;color:#1E40AF;margin-bottom:14px">💡 Template shown — add your <strong>Claude API key</strong> in Settings to unlock real AI content that writes uniquely every time.</div>`:''}
+    <div class="result-card">
+      <div class="result-hd">
+        <div class="badge badge-or">${typeLabels[S.createType]} ${S.apiKey?'✨ AI Generated':'📝 Template'}</div>
+        <div class="badge badge-bl" style="margin-left:6px">${langNames[S.createLang]||'English'}</div>
+        <div class="badge badge-pu" style="margin-left:6px">${S.createTone} tone</div>
+      </div>
+      ${photosHtml}
+      <div class="result-body">
+        <div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">Content — tap to edit</div>
+        <div class="editable" contenteditable="true" id="aiResultText">${resultText}</div>
+        ${['post','reel'].includes(S.createType)?`<div style="font-size:12px;color:var(--bl);font-weight:600;margin-top:8px" id="aiHashtags">${hashtags}</div>`:''}
+        ${scoreBar(resultText)}
+        <div class="result-actions">
+          ${S.createType!=='whatsapp'?`<button class="act-ig" onclick="postAIToInsta()">📸 Post to Instagram</button>`:''}
+          ${S.createType==='whatsapp'?`<button class="act-wa" onclick="sendAIWA()">💬 Open in WhatsApp</button>`:''}
+          <button class="act-regen" onclick="generateContent()">↺ Regenerate</button>
+          <button class="act-copy" onclick="copyAI()">📋 Copy</button>
+          <button class="act-add" onclick="addAIToSchedule()">+ Add to Schedule</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function goCreateB2(){
+  document.getElementById('ca-c').style.display='none';
+  document.getElementById('ca-b').style.display='block';
+}
+function postAIToInsta(){
+  const el=document.getElementById('aiResultText');
+  const ht=document.getElementById('aiHashtags');
+  let text=el?el.innerText:'';
+  if(ht&&!text.includes('#'))text+='\n\n'+ht.innerText;
+  navigator.clipboard.writeText(text).catch(()=>{});
+  toast('✅ Copied! Open Instagram → Create Post → Paste caption. Done!');
+  setTimeout(()=>window.open('https://www.instagram.com','_blank'),1200);
+}
+function sendAIWA(){
+  const el=document.getElementById('aiResultText');
+  window.open('https://wa.me/?text='+encodeURIComponent(el?el.innerText:''),'_blank');
+}
+function copyAI(){
+  const el=document.getElementById('aiResultText');
+  if(el)navigator.clipboard.writeText(el.innerText).then(()=>toast('Copied! 📋')).catch(()=>toast('Copy manually 📋'));
+}
+function addAIToSchedule(){
+  const el=document.getElementById('aiResultText');
+  const typeMap={post:'ig',reel:'reel',story:'story',whatsapp:'wa'};
+  S.schedule.unshift({day:new Date().getDay()===0?6:new Date().getDay()-1,content:{type:typeMap[S.createType]||'ig',text:el?el.innerText:'',extra:{hashtags:(HASHTAGS[S.createLang]||HASHTAGS.en)(S.biz,S.catLabel,S.city)},lang:S.createLang},aiCreated:true,photos:S.photoData.slice()});
+  renderWeek();
+  toast('Added to schedule! ✅');
+  swPanel('schedule',document.getElementById('sbl-schedule'));
+}
+
+// ══════════════════════════════════════════════
+// FESTIVAL CALENDAR
+// ══════════════════════════════════════════════
+function buildFestivalCalendar(){
+  const now=new Date();
+  const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const months={};
+  FESTIVALS.forEach(f=>{
+    if(!months[f.month])months[f.month]=[];
+    months[f.month].push(f);
+  });
+  const order=['October','November','December','January','February','March','April','May','June','July','August','September'];
+  const html=order.map(month=>{
+    if(!months[month])return'';
+    const fests=months[month];
+    const festRows=fests.map(f=>{
+      const fm=monthNames.indexOf(f.month);
+      const fd=new Date(now.getFullYear(),fm,f.day);
+      const diff=Math.round((fd-now)/(1000*60*60*24));
+      let badge='';
+      if(diff<0)badge='<span class="days-badge" style="background:var(--bg2);color:var(--t3)">Passed</span>';
+      else if(diff===0)badge='<span class="days-badge today">Today!</span>';
+      else if(diff<=7)badge=`<span class="days-badge soon">In ${diff} days</span>`;
+      else badge=`<span class="days-badge">In ${diff} days</span>`;
+      return`<div class="fest-row" data-fest="${f.name.replace(/'/g,'&#39;')}" onclick="openFestModal(this.dataset.fest)">
+        <div class="fest-emoji">${f.emoji}</div>
+        <div class="fest-name">${f.name}</div>
+        <div class="fest-date">${f.month} ${f.day}</div>
+        ${badge}
+        <button class="btn btn-or btn-xs" onclick="event.stopPropagation();openFestModal(this.closest('.fest-row').dataset.fest)">Create Posts</button>
+      </div>`;
+    }).join('');
+    return`<div class="month-row"><div class="month-name">${month}</div><div class="festivals-in-month">${festRows}</div></div>`;
+  }).join('');
+  document.getElementById('festivalCalendar').innerHTML=html;
+}
+function openFestModal(name){
+  const f=FESTIVALS.find(x=>x.name===name);
+  if(!f)return;
+  // Store festival name safely — avoids apostrophe/quote issues in inline onclick
+  window._pendingFest=f.name;
+  openModal(f.emoji+' '+f.name+' Content','Choose what to create for this festival');
+  document.getElementById('mBody').innerHTML=`
+    <div style="background:var(--orm);border:1px solid var(--orb);border-radius:12px;padding:14px 16px;margin-bottom:18px">
+      <div style="font-weight:600;margin-bottom:4px">💡 Tip: ${f.tip}</div>
+      <div style="font-size:13px;color:var(--t2)">AI will write ${f.name} specific content for ${S.biz} in ${S.city}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+      <button class="btn btn-or" onclick="createFestContent(window._pendingFest,'post');closeModal()">📸 Instagram Post</button>
+      <button class="btn btn-or" onclick="createFestContent(window._pendingFest,'reel');closeModal()">🎬 Reel Script</button>
+      <button class="btn btn-or" onclick="createFestContent(window._pendingFest,'story');closeModal()">⭕ Story Guide</button>
+      <button class="btn btn-or" onclick="createFestContent(window._pendingFest,'whatsapp');closeModal()">💬 WhatsApp Msg</button>
+    </div>
+    <div style="font-size:13px;color:var(--t2);text-align:center">Each will be created in <strong>${LANGS[S.lang]||'English'}</strong> using AI</div>`;
+}
+function createFestContent(festName,type){
+  // Map schedule slot types (ig/wa) to createType values used in generateContent()
+  const typeMap={ig:'post',reel:'reel',story:'story',wa:'whatsapp'};
+  const createType=typeMap[type]||type;
+  S.createType=createType;
+  S.brief=festName+' special offer and wishes for '+S.catLabel+' in '+S.city;
+  S.createTone='Festive';
+  S.createLang=S.lang;
+  swPanel('create',document.getElementById('sbl-create'));
+  // Highlight the correct type card
+  document.querySelectorAll('.ctype-card').forEach(c=>c.classList.remove('sel'));
+  const cardIds={post:'ct-post',reel:'ct-reel',story:'ct-story',whatsapp:'ct-wa'};
+  const cardEl=document.getElementById(cardIds[createType]);
+  if(cardEl)cardEl.classList.add('sel');
+  document.getElementById('btnNextToB').disabled=false;
+  // Go straight to step B
+  document.getElementById('ca-a').style.display='none';
+  document.getElementById('ca-b').style.display='block';
+  document.getElementById('ca-c').style.display='none';
+  // Sync language chip
+  document.querySelectorAll('#createLangRow .chip').forEach(c=>{
+    c.classList.toggle('sel',c.dataset.lang===S.createLang);
+  });
+  document.getElementById('briefInput').value=S.brief;
+  document.getElementById('briefConfirmed').style.display='block';
+  document.getElementById('btnGenerate').disabled=false;
+  const typeLabels={post:'Instagram Post',reel:'Reel Script',story:'Story Guide',whatsapp:'WhatsApp Message'};
+  document.getElementById('aiQuestion').textContent='Creating a '+( typeLabels[createType]||createType)+' for '+festName+'. Your '+S.catLabel+' business in '+S.city+'. Click Generate!';
+  toast('Ready to create '+festName+' content! Click Generate ✨');
+}
+function createFestivalContent(){
+  const uf=getUpcomingFestival();
+  if(uf)openFestModal(uf.festival.name);
+}
+
+// ══════════════════════════════════════════════
+// WHATSAPP
+// ══════════════════════════════════════════════
+let waLang='en';let waCat='Festival offer';
+function pickWACat(el){
+  document.querySelectorAll('#waCatRow .chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');waCat=el.dataset.v;
+}
+function pickChipSingle(el,groupId){
+  const p=document.getElementById(groupId);
+  if(p)p.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+async function generateWA(){
+  const details=document.getElementById('waDetails').value;
+  const tone=document.querySelector('#waToneRow .chip.sel')?.dataset.v||'Festive';
+  document.getElementById('waMsgSection').style.display='block';
+  document.getElementById('waMsgPreview').textContent='✍️ Writing your message...';
+  const randomCTA=randItem(CTAS);
+  const randomVibe=randItem(VIBES);
+  const langNames={en:'English',hi:'Hindi',gu:'Gujarati',mr:'Marathi',pa:'Punjabi'};
+  let msg='';
+  if(S.apiKey){
+    try{
+      const waPrompt=`You are India's top WhatsApp marketing expert for local businesses.
+
+BUSINESS: ${S.biz} (${S.catLabel}) in ${S.city}
+SERVICES: ${S.services||S.catLabel}
+CAMPAIGN TYPE: ${waCat}
+DETAILS: ${details||'general promotion'}
+TONE: ${tone}
+LANGUAGE: ${langNames[waLang]||'English'}
+CTA TO ADAPT: "${randomCTA}"
+VIBE: ${randomVibe}
+
+Write a WhatsApp BROADCAST MESSAGE.
+
+RULES:
+- Do NOT start with "Hello!" — use a warm, personal, unexpected opener
+- 2–3 short paragraphs
+- Feel like it's from a real shop owner, not a corporation
+- One clear offer or message
+- Natural emojis (not too many)
+- End with the shop name and city
+- Max 120 words
+- NO hashtags
+
+Write ONLY the message. No labels, no explanations.`;
+      const r=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':S.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,temperature:0.95,messages:[{role:'user',content:waPrompt}]})
+      });
+      const d=await r.json();
+      msg=d.content?.find(b=>b.type==='text')?.text||'';
+      if(d.error)throw new Error(d.error.message);
+    }catch(e){console.error(e);msg='';}
+  }
+  if(!msg){
+    const tmpl=T[waLang]||T.en;
+    msg=(tmpl.wa||T.en.wa)(S.biz,S.catLabel,S.city,S.services,tone,details,waCat);
+  }
+  document.getElementById('waMsgPreview').textContent=msg;
+}
+function startWACampaign(brief){
+  swPanel('whatsapp',document.getElementById('sbl-whatsapp'));
+  document.getElementById('waDetails').value=brief;
+}
+function sendWACampaign(){
+  const msg=document.getElementById('waMsgPreview').textContent;
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+  toast('Opening WhatsApp — select your broadcast list to send! ✅');
+}
+function copyWA(){
+  const msg=document.getElementById('waMsgPreview').textContent;
+  navigator.clipboard.writeText(msg).then(()=>toast('Copied! 📋')).catch(()=>toast('Copy manually'));
+}
+function updateWAPreview(){
+  const msgs={
+    en:`Hello! 👋 This is ${S.biz}, your trusted ${S.catLabel} in ${S.city}.\n\nWe have a special offer just for you!\n\nReply or call to know more.\n— ${S.biz}`,
+    hi:`नमस्ते! 👋 ${S.biz}, ${S.city}.\n\nSpecial offer — सिर्फ आपके लिए!\nCall/Reply.\n— ${S.biz}`,
+    gu:`જ.શ.ક.! 👋 ${S.biz}, ${S.city}.\n\nSpecial offer — ફક્ત customers!\nCall/Reply.\n— ${S.biz}`,
+    mr:`नमस्कार! 👋 ${S.biz}, ${S.city}.\n\nSpecial offer!\nCall/Reply.\n— ${S.biz}`,
+    pa:`ਸ.ਸ.ਅ.! 👋 ${S.biz}, ${S.city}.\n\nSpecial offer!\nCall/Reply.\n— ${S.biz}`
+  };
+  const el=document.getElementById('waMsgPreview');
+  if(el&&el.textContent==='Generating...')el.textContent='';
+}
+function updateWAReviewPreview(){
+  const name=document.getElementById('custRevName')?.value||'valued customer';
+  const msgs={
+    en:`Hello ${name}! 🙏\n\nThank you for visiting ${S.biz}.\n\nWe'd love your feedback — could you spare 2 minutes to leave us a Google review?\n\n👉 [Your Google Review Link]\n\nYour review helps us grow and helps other customers find us. Thank you! 😊\n— ${S.biz}, ${S.city}`,
+    hi:`नमस्ते ${name}! 🙏\n\n${S.biz} में आने के लिए धन्यवाद।\n\nकृपया Google Review दें:\n👉 [Google Review Link]\n\nआपका review बहुत important है! 🙏\n— ${S.biz}, ${S.city}`,
+    gu:`${name}, 🙏 ${S.biz}ની મુલાકાત બદલ આભાર.\nGoogle Review:\n👉 [Google Review Link]\n— ${S.biz}`,
+    mr:`${name}, 🙏 ${S.biz}ला भेटीबद्दल धन्यवाद.\nGoogle Review:\n👉 [Google Review Link]\n— ${S.biz}`,
+    pa:`${name}, 🙏 ${S.biz} ਵਿੱਚ ਆਉਣ ਦਾ ਧੰਨਵਾਦ.\nGoogle Review:\n👉 [Google Review Link]\n— ${S.biz}`
+  };
+  const el=document.getElementById('revReqPreview');
+  if(el)el.textContent=msgs[S.lang]||msgs.en;
+}
+function sendRevReq(){
+  const phone=document.getElementById('custRevPhone')?.value.replace(/\D/g,'');
+  const name=document.getElementById('custRevName')?.value||'valued customer';
+  const msgs={
+    en:`Hello ${name}! 🙏\n\nThank you for visiting ${S.biz}.\n\nCould you spare 2 minutes to leave us a Google review?\n👉 https://g.page/r/review\n\nThank you! 😊\n— ${S.biz}`,
+    hi:`नमस्ते ${name}! 🙏\n\n${S.biz} में आने का धन्यवाद।\nGoogle Review: https://g.page/r/review\n— ${S.biz}`,
+    gu:`${name} 🙏 ${S.biz} Google Review:\nhttps://g.page/r/review — ${S.biz}`,
+    mr:`${name} 🙏 ${S.biz} Google Review:\nhttps://g.page/r/review — ${S.biz}`,
+    pa:`${name} 🙏 ${S.biz} Google Review:\nhttps://g.page/r/review — ${S.biz}`
+  };
+  const msg=msgs[S.lang]||msgs.en;
+  const url=phone?`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`:`https://wa.me/?text=${encodeURIComponent(msg)}`;
+  window.open(url,'_blank');
+  toast('Opening WhatsApp with review request! ✅');
+}
+function copyRevReq(){
+  const el=document.getElementById('revReqPreview');
+  if(el)navigator.clipboard.writeText(el.textContent).then(()=>toast('Copied! 📋')).catch(()=>toast('Copy manually'));
+}
+function renderCustTable(){
+  document.getElementById('custTable').innerHTML=`
+    <div style="padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--bg2);font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;display:flex;gap:12px">
+      <span style="flex:1">Customer</span><span>Service</span><span>Time</span><span>Review</span>
+    </div>
+    ${CUST_VISITS.map(c=>`<div class="cust-row">
+      <div class="cust-avatar">${c.name.charAt(0)}</div>
+      <div class="cust-name">${c.name}<div class="cust-service">${c.service}</div></div>
+      <span style="font-size:12px;color:var(--t3);margin-left:auto">${c.time}</span>
+      <span class="cust-status status-${c.revStatus==='sent'?'review-sent':c.revStatus}">${c.revStatus==='sent'?'✓ Sent':c.revStatus==='pending'?'Sending at 5pm':'—'}</span>
+    </div>`).join('')}`;
+}
+function addCustVisit(){
+  const name=prompt('Customer name:');if(!name)return;
+  const svc=prompt('Service / product purchased:')+'';
+  CUST_VISITS.push({name,service:svc,time:new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),revStatus:'pending'});
+  renderCustTable();
+  toast('Visit logged! Review request will send in 2 hours 📲');
+}
+
+// ══════════════════════════════════════════════
+// GOOGLE REVIEWS
+// ══════════════════════════════════════════════
+function renderReviews(){
+  const unReplied=REVIEWS_DATA.filter(r=>!r.replied).length;
+  const badge=document.getElementById('revBadge');
+  if(badge)badge.textContent=unReplied;
+  document.getElementById('reviewsList').innerHTML=REVIEWS_DATA.map(r=>`
+    <div class="review-card" id="rcard-${r.id}">
+      <div class="reviewer-top">
+        <div class="reviewer-left">
+          <div class="reviewer-av">${r.initials}</div>
+          <div><div class="reviewer-name">${r.name}</div><div class="reviewer-meta">${r.date} · ${r.replied?'Replied':'Not replied yet'}</div></div>
+        </div>
+        <div>
+          <div class="review-stars-sm">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+          ${!r.replied?'<div class="badge badge-re" style="margin-top:4px">Needs reply</div>':'<div class="badge badge-gr" style="margin-top:4px">Replied</div>'}
+        </div>
+      </div>
+      <div class="review-txt">"${r.text}"</div>
+      ${r.replied
+        ?`<div class="ai-reply-preview"><div class="ai-reply-label">Your Reply</div>${r.reply}</div>`
+        :`<textarea class="reply-inp" id="ri-${r.id}" placeholder="Write your reply or click ✨ AI Reply to generate one instantly..."></textarea>
+         <div class="reply-actions">
+           <button class="ai-reply-btn" onclick="aiReply(${r.id})">✨ AI Reply</button>
+           <button class="send-reply-btn" onclick="sendReply(${r.id})">✓ Post Reply</button>
+           <button class="btn btn-ghost btn-xs" onclick="copyReply(${r.id})">📋 Copy</button>
+         </div>`
+      }
+    </div>`).join('');
+}
+async function aiReply(id){
+  const rev=REVIEWS_DATA.find(r=>r.id===id);
+  const inp=document.getElementById('ri-'+id);
+  if(!rev||!inp)return;
+  inp.value='✍️ Writing reply...';inp.disabled=true;
+  const positive=rev.stars>=4;
+  const warmOpeners=['Thank you so much','We really appreciate this','This genuinely made our day','Such kind words mean everything','You just made our whole team smile'];
+  const criticalOpeners=['We sincerely apologise','We take this seriously','Thank you for being honest with us','Your experience matters to us','We are sorry we did not meet your expectations'];
+  const opener=positive?randItem(warmOpeners):randItem(criticalOpeners);
+  const fallback=positive
+    ?`${opener}, ${rev.name.split(' ')[0]}! 🙏 We pour our heart into everything we do at ${S.biz} and it means the world when customers notice. See you again in ${S.city}! 💛`
+    :`${opener}, ${rev.name.split(' ')[0]}. At ${S.biz} every visit should be perfect — and we clearly missed that for you. Please reach out to us directly so we can make it right. Thank you for the honest feedback.`;
+  if(S.apiKey){
+    try{
+      const replyPrompt=`You are the owner of "${S.biz}", a ${S.catLabel} business in ${S.city}.
+
+Write a Google Review reply to this customer.
+
+Reviewer name: ${rev.name}
+Star rating: ${rev.stars}/5
+Review text: "${rev.text}"
+
+RULES:
+- Start with this opener (adapt it naturally): "${opener}"
+- Sound like a REAL business owner — warm, genuine, personal
+- ${positive?'Express gratitude and invite them back':'Apologise sincerely and offer to resolve it'}
+- Mention the business name naturally once
+- Max 55 words
+- No generic phrases like "We strive for excellence" or "Your satisfaction is our priority"
+- End with one emoji maximum
+
+Write ONLY the reply text.`;
+      const r=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':S.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:160,temperature:0.9,messages:[{role:'user',content:replyPrompt}]})
+      });
+      const d=await r.json();
+      inp.value=d.content?.find(b=>b.type==='text')?.text||fallback;
+    }catch(e){inp.value=fallback;}
+  }else{inp.value=fallback;}
+  inp.disabled=false;
+}
+function sendReply(id){
+  const inp=document.getElementById('ri-'+id);
+  if(!inp?.value.trim()){toast('Please write or generate a reply first ⚠️');return;}
+  const rev=REVIEWS_DATA.find(r=>r.id===id);
+  if(rev){rev.replied=true;rev.reply=inp.value;}
+  renderReviews();
+  toast('Reply saved! ✅ Copy and paste it in Google Maps to publish.');
+}
+function copyReply(id){
+  const inp=document.getElementById('ri-'+id);
+  if(inp)navigator.clipboard.writeText(inp.value).then(()=>toast('Reply copied! 📋 Paste it in Google Maps')).catch(()=>toast('Copy manually'));
+}
+function copyRevLink(){
+  navigator.clipboard.writeText('https://g.page/r/YOUR_PLACE_ID/review').then(()=>toast('Review link copied! Share with customers 📋'));
+}
+
+// ══════════════════════════════════════════════
+// ANALYTICS
+// ══════════════════════════════════════════════
+function buildAnalytics(){
+  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const vals=[32,68,54,91,115,142,58];
+  const mx=Math.max(...vals);
+  document.getElementById('anaChart').innerHTML=vals.map(v=>`<div class="bar-col"><div class="bar-el" style="height:${Math.round(100*v/mx)}%"></div></div>`).join('');
+  document.getElementById('anaDays').innerHTML=days.map(d=>`<div style="flex:1;text-align:center;font-size:10px;color:var(--t3)">${d}</div>`).join('');
+}
+
+// ══════════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════════
+function toggleApiKey(){
+  const inp=document.getElementById('setApiKey');
+  const btn=event.target;
+  if(inp.type==='password'){inp.type='text';btn.textContent='Hide';}
+  else{inp.type='password';btn.textContent='Show';}
+}
+function saveApiKey(){
+  const key=document.getElementById('setApiKey').value.trim();
+  if(!key){toast('Please enter an API key ⚠️');return;}
+  if(!key.startsWith('sk-ant-')){toast('Invalid key — should start with sk-ant- ⚠️');return;}
+  S.apiKey=key;localStorage.setItem('vyapar_ak',key);
+  const el=document.getElementById('apiKeySt');if(el){el.textContent='✓ Saved!';el.style.color='var(--gr)';}
+  const dot=document.getElementById('aiStatusDot');if(dot)dot.style.display='inline-flex';
+  toast('API key saved! 🤖 Real AI generation is now active.');
+  setTimeout(()=>{const el=document.getElementById('apiKeySt');if(el)el.textContent='';},3000);
+}
+function saveSettings(){
+  S.biz=document.getElementById('setBiz').value||S.biz;
+  S.city=document.getElementById('setCity').value||S.city;
+  S.services=document.getElementById('setServices').value||S.services;
+  const sp=document.getElementById('setAvgSpend');if(sp&&sp.value)S.avgSpend=parseInt(sp.value);
+  document.getElementById('sbName').textContent=S.biz;
+  document.getElementById('sbMeta').textContent=S.city+' · '+S.catLabel;
+  document.getElementById('topBizName').textContent=S.biz;
+  document.getElementById('tipCity').textContent=S.city;
+  updateWAReviewPreview();
+  toast('Settings saved! ✅');
+}
+function rateStar(el){
+  const v=parseInt(el.dataset.v);S.fbRating=v;
+  document.querySelectorAll('.star-btn').forEach((s,i)=>{s.classList.toggle('on',i<v);});
+}
+function submitFeedback(){
+  const text=document.getElementById('fbText')?.value||'';
+  const feats=Array.from(document.querySelectorAll('#fbFeature .chip.sel')).map(c=>c.textContent).join(', ');
+  const summary=`VyaparAI Beta Feedback\nRating: ${S.fbRating}/5\nKey features wanted: ${feats}\nComments: ${text}`;
+  navigator.clipboard.writeText(summary).catch(()=>{});
+  toast('Thank you for the feedback! 🙏 It has been copied — share it with the team!');
+}
+
+// ══════════════════════════════════════════════
+// SIDEBAR / PANEL NAVIGATION
+// ══════════════════════════════════════════════
+function swPanel(id,btn){
+  document.querySelectorAll('.sb-link').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const panel=document.getElementById('panel-'+id);
+  if(panel)panel.classList.add('active');
+  // Panel-specific inits
+  if(id==='schedule')renderWeek();
+  if(id==='analytics')buildAnalytics();
+  if(id==='settings'){
+    const sb=document.getElementById('setBiz');if(sb)sb.value=S.biz;
+    const sc=document.getElementById('setCity');if(sc)sc.value=S.city;
+    const sk=document.getElementById('setApiKey');if(sk&&S.apiKey)sk.value=S.apiKey;
+  }
+  if(id==='create'){
+    document.getElementById('ca-a').style.display='block';
+    document.getElementById('ca-b').style.display='none';
+    document.getElementById('ca-c').style.display='none';
+  }
+  if(id==='whatsapp'){updateWAReviewPreview();}
+}
+
+// ══════════════════════════════════════════════
+// MODAL HELPERS
+// ══════════════════════════════════════════════
+function openModal(title,sub,body){
+  document.getElementById('mTitle').textContent=title||'';
+  document.getElementById('mSub').textContent=sub||'';
+  if(body)document.getElementById('mBody').innerHTML=body;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+
+// ══════════════════════════════════════════════
+// LOADER
+// ══════════════════════════════════════════════
+function showLoader(steps=[]){
+  document.getElementById('loaderMsg').textContent=steps[0]||'Loading...';
+  document.getElementById('loaderSteps').innerHTML=steps.map((s,i)=>`<div class="loader-step" id="ls${i}"><span class="ls-dot"></span>${s}</div>`).join('');
+  document.getElementById('loader').classList.add('on');
+  let i=0;
+  const iv=setInterval(()=>{
+    const p=document.getElementById('ls'+i);if(p)p.classList.add('done');
+    i++;const n=document.getElementById('ls'+i);
+    if(n)document.getElementById('loaderMsg').textContent=n.textContent.trim();
+    if(i>=steps.length)clearInterval(iv);
+  },360);
+}
+function hideLoader(){document.getElementById('loader').classList.remove('on');}
+
+// ══════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════
+function toast(msg,dur=2800){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('on');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),dur);
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+document.addEventListener('input',e=>{
+  if(e.target.id==='custRevName'||e.target.id==='custRevPhone')updateWAReviewPreview();
+});
+</script>
+</body>
+</html>
