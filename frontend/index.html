@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VyaparAI</title>
+
+<style>
+
+body{
+  margin:0;
+  padding:40px;
+  background:#f4f4f4;
+  font-family:Arial;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(0,0,0,0.1);
+}
+
+h1{
+  text-align:center;
+}
+
+input,select,button{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  box-sizing:border-box;
+}
+
+button{
+  background:black;
+  color:white;
+  cursor:pointer;
+  font-size:16px;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+#output{
+  margin-top:20px;
+  background:#f7f7f7;
+  padding:20px;
+  border-radius:10px;
+  white-space:pre-wrap;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>VyaparAI Demo</h1>
+
+<input type="text" id="businessName" placeholder="Business Name">
+
+<input type="text" id="industry" placeholder="Industry">
+
+<input type="text" id="city" placeholder="City">
+
+<select id="language">
+  <option>English</option>
+  <option>Hindi</option>
+  <option>Gujarati</option>
+</select>
+
+<button onclick="generateContent()">
+Generate AI Content
+</button>
+
+<div id="output">
+Generated content will appear here...
+</div>
+
+</div>
+
+<script>
+
+async function generateContent(){
+
+  const output = document.getElementById('output');
+
+  output.innerHTML = 'Generating content...';
+
+  try{
+
+    const response = await fetch('http://localhost:5000/generate',{
+
+      method:'POST',
+
+      headers:{
+        'Content-Type':'application/json'
+      },
+
+      body:JSON.stringify({
+        businessName:document.getElementById('businessName').value,
+        industry:document.getElementById('industry').value,
+        city:document.getElementById('city').value,
+        language:document.getElementById('language').value
+      })
+
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+      output.innerHTML = result.content;
+    }else{
+      output.innerHTML = result.message;
+    }
+
+  }catch(error){
+
+    output.innerHTML =
+    'Backend not running.<br><br>1. Open backend folder<br>2. Double click start_backend.bat';
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
